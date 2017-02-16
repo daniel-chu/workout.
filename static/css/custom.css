@@ -1,0 +1,30 @@
+#login-window {
+    width: 600px;
+    max-width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+#login-window > h1 {
+    margin-bottom: 5;
+}
+
+#login-window > .btn {
+    margin: 5px;
+    width: 25%;
+}
+
+#login-window div {
+    padding: 0;
+}
+
+#login-window input {
+    width: 100%;
+    margin: 5px;
+}
+
+#errorMessage {
+    /* color: #d60a0a; */
+    color: #fc6a6a;
+    margin-bottom: 5px;
+}
