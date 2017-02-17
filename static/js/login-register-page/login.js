@@ -18,7 +18,7 @@ $(document).ready(function() {
                     $('#error-message-login').text(response['error']).show()
                         .effect("shake", { direction: "up", times: 3, distance: 2 });
                 } else {
-                    // TODO manage session/login 
+                    // TODO manage session/login
                     alert(response);
                 }
             })

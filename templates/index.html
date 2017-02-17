@@ -1,6 +1,8 @@
 {% extends "head.html" %} {% block body %}
+<div id="login-screen-title-container">
+    <h1 class="inline-header">workout.</h1><h1 id="login-screen-title-category" class="inline-header">login</h1>
+</div>
 <div id="login-window">
-    <h1>workout.login</h1>
     <div id="error-message-login" class='error-text' style="display:none"></div>
     <div class="row">
         <div class="col-md-3"></div>
@@ -18,59 +20,49 @@
     </div>
     <button id="loginButton" class="btn btn-warning btn-large login-page-button">login</button>
     <br>
-    <button id="registerOpen" class="btn btn-primary btn-large login-page-button" data-toggle="modal" data-target='#register-popup'>register</button>
+    <button id="registerOpen" class="btn btn-primary btn-large login-page-button">register</button>
 </div>
-<div id="register-popup" class="modal modal-lg fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h1>workout.register</h1>
-            </div>
-            <div class="modal-body">
-                <div id="error-message-register" class='error-text' style="display:none"></div>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <input id="name-register" class="form-control enter-to-submit" placeholder="name">
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <input id="email-register" class="form-control enter-to-submit" placeholder="email">
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <input id="username-register" class="form-control enter-to-submit" placeholder="username">
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <input id="password-register" class="form-control enter-to-submit" placeholder="password" type="password">
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <input id="password-confirm-register" class="form-control enter-to-submit" placeholder="confirm password" type="password">
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <button id="registerButton" class="btn btn-warning btn-large login-page-button">register</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-            </div>
+<div id="register-window" style="display:none">
+    <div id="error-message-register" class='error-text' style="display:none"></div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input id="name-register" class="form-control enter-to-submit" placeholder="name">
         </div>
+        <div class="col-md-2"></div>
     </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input id="email-register" class="form-control enter-to-submit" placeholder="email">
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input id="username-register" class="form-control enter-to-submit" placeholder="username">
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input id="password-register" class="form-control enter-to-submit" placeholder="password" type="password">
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input id="password-confirm-register" class="form-control enter-to-submit" placeholder="confirm password" type="password">
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <button id="registerButton" class="btn btn-warning btn-large login-page-button">register</button>
+    <button id="registerCancel" type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+</div>
+</div>
 </div>
 <script src="/static/js/login-register-page/login.js"></script>
 <script src="/static/js/login-register-page/register.js"></script>

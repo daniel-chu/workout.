@@ -1,5 +1,8 @@
 $(document).ready(function() {
+    var $titleCategory = $('#login-screen-title-category');
     var $registerButton = $('#registerButton');
+    var $registerOpen = $('#registerOpen');
+    var $registerCancel = $('#registerCancel');
     var $registerPopup = $('#register-popup');
 
     function registerSubmit() {
@@ -34,12 +37,32 @@ $(document).ready(function() {
 
     $registerButton.on('click', registerSubmit);
 
-    $('#register-popup .enter-to-submit').on('keydown', function(event) {
+    $('#register-window .enter-to-submit').on('keydown', function(event) {
         if ($registerButton.attr('disable') == undefined || $registerButton.attr('disable') == 'false') {
             if (event.which == 13) {
                 registerSubmit();
             }
         }
     });
+
+    $registerOpen.on('click', function() {
+        $titleCategory.fadeOut(300, function() {
+            $titleCategory.text('register');
+            $titleCategory.fadeIn(600);
+        });
+        $('#login-window').fadeOut(300, function() {
+            $('#register-window').fadeIn(600);
+        });
+    })
+
+    $registerCancel.on('click', function() {
+        $titleCategory.fadeOut(300, function() {
+            $titleCategory.text('login');
+            $titleCategory.fadeIn(600);
+        });
+        $('#register-window').fadeOut(300, function() {
+            $('#login-window').fadeIn(600);
+        });
+    })
 
 });

@@ -1,48 +1,28 @@
-#login-window {
+.inline-header {
+    display: inline-block;
+}
+
+#login-screen-title-container {
+    position: relative;
+    left: 40%;
+}
+
+#login-screen-title-text {
+    padding: 15px;
+    margin: 0;
+}
+
+#login-window,
+#register-window {
     width: 600px;
     max-width: 100%;
     margin: auto;
     text-align: center;
 }
 
-#register-popup {
-    width: 100%;
-    margin: auto;
-    text-align: center;
-}
-
-#register-popup h1 {
-    display: inline-block;
-    margin: 0;
-}
-
-#register-popup .modal-body {
-    padding: 0;
-}
-
-#register-popup .modal-header {
-    border: none;
-}
-
-#register-popup .modal-footer {
-    padding: 5px 10px 10px 0;
-    border: none;
-}
-
-#register-popup .close {
-    height: 30px;
-    font-size: 30px;
-    color: red;
-}
-
 #registerButton {
     margin-top: 10px;
     width: 35%;
-}
-
-.modal-backdrop.in {
-    background-color: #3d3e47;
-    opacity: 1;
 }
 
 #login-window > h1 {
@@ -52,10 +32,6 @@
 .login-page-button {
     margin: 5px;
     width: 25%;
-}
-
-.modal-dialog {
-    width: 500px;
 }
 
 #login-window div {
