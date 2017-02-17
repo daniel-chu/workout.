@@ -13,11 +13,12 @@ $(document).ready(function() {
             })
             .done(function(response) {
                 $loginButton.attr('disable', false);
-                $('#errorMessage').hide()
+                $('#error-message-login').hide()
                 if (response['status'] == 'error') {
-                    $('#errorMessage').text(response['error']).show()
+                    $('#error-message-login').text(response['error']).show()
                         .effect("shake", { direction: "up", times: 3, distance: 2 });
                 } else {
+                    // TODO manage session/login 
                     alert(response);
                 }
             })
@@ -26,14 +27,14 @@ $(document).ready(function() {
             });
     }
 
-    $('.enter-to-submit').on('keydown', function(event) {
+    $loginButton.on('click', loginSubmit);
+
+    $('#login-window .enter-to-submit').on('keydown', function(event) {
         if ($loginButton.attr('disable') == undefined || $loginButton.attr('disable') == 'false') {
             if (event.which == 13) {
                 loginSubmit();
             }
         }
     });
-
-    $loginButton.on('click', loginSubmit);
 
 });
