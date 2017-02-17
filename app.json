@@ -1,0 +1,7 @@
+{
+    "name": "workout.",
+    "description": "Web-application designed to track workouts using a clear and simple interface.",
+    "buildpacks": [{
+        "url": "heroku/python"
+    }]
+}
