@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var $titleCategory = $('#login-screen-title-category');
+    var $titleCategory = $('#title-category');
     var $registerButton = $('#registerButton');
     var $registerOpen = $('#registerOpen');
     var $registerCancel = $('#registerCancel');
@@ -21,13 +21,11 @@ $(document).ready(function() {
             .done(function(response) {
                 $registerButton.attr('disable', false);
                 $('#error-message-register').hide();
-                if (response['status'] == 'error') {
+                if (response['status'] === 'error') {
                     $('#error-message-register').text(response['error']).show()
                         .effect("shake", { direction: "up", times: 3, distance: 2 });
-                } else {
-                    // TODO manage session/login
-                    $registerPopup.modal('hide');
-                    alert(response);
+                } else if (response['status'] === 'success') {
+                    PageNavigationUtil.goToMainTrackerPage();
                 }
             })
             .fail(function(response) {

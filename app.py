@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request
 from flask.json import jsonify
 from pymongo import MongoClient
 from workoutUtils import *
@@ -6,6 +6,7 @@ import jinja2
 import os
 
 app = Flask(__name__)
+app.secret_key=os.environ.get('SECRET_KEY')
 
 client = MongoClient(os.environ.get('MONGO_URI'))
 db = client['workout-log']
@@ -34,20 +35,19 @@ def login():
     if loginAttemptUser is None:
         return jsonify(status='error', error='No account with that username.')
     if(validate_user_and_password(loginAttemptUser, password)):
-        # TODO manage session/login
-        return "Login Succesful with username: " + username
+        sign_in(username)
+        return jsonify(status='success')
     else:
         return jsonify(status='error',error='Wrong password.')
-
 
 @app.route('/registerUser', methods=['POST'])
 def register_user():
     name = request.form.get('name')
-    email = request.form.get("email")
+    email = request.form.get('email')
     email = email.lower()
-    username = request.form.get("username")
+    username = request.form.get('username')
     username = username.lower()
-    password = request.form.get("password")
+    password = request.form.get('password')
     password_confirmed = request.form.get("passwordConfirm")
 
     if not name:
@@ -76,8 +76,15 @@ def register_user():
     hashed_and_salted_pw = hash_password(password)
     users.insert_one({"_id":gen_unique_string_id(), "username":username, "email":email, "password":hashed_and_salted_pw})
 
-    # TODO manage session/login
-    return "REGISTERED SUCCESSFULLY"
+    sign_in(username)
+    return jsonify(status='success')
+
+@app.route('/getLog', methods=['POST'])
+def getLogs():
+    if not is_logged_in():
+        return jsonify(status='error', error='Not logged in.');
+    #TODO return actual data
+    return jsonify(status='success');
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT'))

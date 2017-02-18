@@ -14,12 +14,11 @@ $(document).ready(function() {
             .done(function(response) {
                 $loginButton.attr('disable', false);
                 $('#error-message-login').hide()
-                if (response['status'] == 'error') {
+                if (response['status'] === 'error') {
                     $('#error-message-login').text(response['error']).show()
                         .effect("shake", { direction: "up", times: 3, distance: 2 });
-                } else {
-                    // TODO manage session/login
-                    alert(response);
+                } else if (response['status'] === 'success') {
+                    PageNavigationUtil.goToMainTrackerPage();
                 }
             })
             .fail(function(response) {
