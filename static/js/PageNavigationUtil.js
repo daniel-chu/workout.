@@ -1,25 +1,29 @@
 var PageNavigationUtil = (function() {
 
-    function fadeInTitleChange(title) {
+    function handleTitleChange(title) {
         var $titleCategory = $('#title-category');
         var $titleContainer = $('#title-container');
+        $titleCategory.stop();
+        $titleContainer.stop();
 
-        $titleCategory.text(title);
-        var shiftDist = $titleContainer.width() / 2;
-        $titleContainer.css('margin-left', 'calc(50% - ' + shiftDist + 'px)');
-        $titleCategory.fadeTo(600, 1);
+        $titleCategory.fadeTo(300, 0, function() {
+            $titleCategory.text(title);
+            var shiftDist = $titleContainer.width() / 2;
+            $titleContainer.css('margin-left', 'calc(50% - ' + shiftDist + 'px)');
+            $titleCategory.fadeTo(600, 1);
+        });
     }
 
     function renderPageFrom(title, htmlpath, callback) {
         var $contentWindow = $('#content-window');
+        $contentWindow.stop();
 
-        $('#title-category').fadeTo(300, 0);
+        handleTitleChange(title);
         $contentWindow.fadeOut(300, function() {
             $contentWindow.load(htmlpath, function() {
-                fadeInTitleChange(title);
+                $contentWindow.fadeIn(600);
                 callback();
             });
-            $contentWindow.fadeIn(600);
         });
     }
 
@@ -27,25 +31,28 @@ var PageNavigationUtil = (function() {
         var $navBarContentContainer = $('#nav-bar-content-container');
         if ($.trim($navBarContentContainer.html()).length == 0) {
             var username = '';
+
             $.ajax({
                 type: 'POST',
                 url: '/retrieveUsername',
                 data: {}
             }).done(function(response) {
                 username = response;
-            })
-            $navBarContentContainer.load('/static/html/navbar-content.html', function() {
-                $('#nav-bar-user-name').text(username);
-                $navBarContentContainer.fadeIn(400);
+                $navBarContentContainer.load('/static/html/navbar-content.html', function() {
+                    $('#nav-bar-user-name').text(username);
+                    $navBarContentContainer.fadeIn(400);
+                });
             });
         }
     }
 
     function removeNavBarItems() {
         var $navBarContentContainer = $('#nav-bar-content-container');
-        $navBarContentContainer.fadeOut(400, function() {
-            $navBarContentContainer.empty();
-        });
+        if ($.trim($navBarContentContainer.html()).length != 0) {
+            $navBarContentContainer.fadeOut(400, function() {
+                $navBarContentContainer.empty();
+            });
+        }
     }
 
     return {
