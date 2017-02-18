@@ -79,7 +79,7 @@ def register_user():
     sign_in(username)
     return jsonify(status='success')
 
-@app.route('/getLog', methods=['POST'])
+@app.route('/getWorkouts', methods=['POST'])
 def getLogs():
     if not is_logged_in():
         return jsonify(status='error', error='Not logged in.');

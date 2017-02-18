@@ -44,121 +44,14 @@
     margin-bottom: 5px;
 }
 
-@media screen and (min-width: 300px) and (max-width: 350px) {
-    #title-container {
-        white-space: nowrap;
-        padding-left: 9%;
-    }
-    h1 {
-        font-size: 30px;
-    }
+#title-container {
+    opacity: 0;
+    transition: .3s;
+    display: inline-block;
 }
 
-@media screen and (min-width: 351px) and (max-width: 400px) {
-    #title-container {
-        white-space: nowrap;
-        padding-left: 11%;
-    }
+@media screen and (min-width: 300px) and (max-width: 450px) {
     h1 {
-        font-size: 32px;
-    }
-}
-
-@media screen and (min-width: 401px) and (max-width: 475px) {
-    #title-container {
-        white-space: nowrap;
-        padding-left: 13%;
-    }
-    h1 {
-        font-size: 35px;
-    }
-}
-
-@media screen and (min-width: 476px) and (max-width: 550px) {
-    #title-container {
-        white-space: nowrap;
-        padding-left: 18%;
-    }
-    h1 {
-        font-size: 35px;
-    }
-}
-
-@media screen and (min-width: 551px) and (max-width: 700px) {
-    #title-container {
-        white-space: nowrap;
-        padding-left: 21%;
-    }
-    h1 {
-        font-size: 36px;
-    }
-}
-
-@media screen and (min-width: 701px) and (max-width: 800px) {
-    #title-container {
-        white-space: nowrap;
-        padding-left: 26%;
-    }
-    h1 {
-        font-size: 36px;
-    }
-}
-
-@media screen and (min-width: 801px) and (max-width: 900px) {
-    #title-container {
-        white-space: nowrap;
-        padding-left: 30%;
-    }
-    h1 {
-        font-size: 36px;
-    }
-}
-
-@media screen and (min-width: 901px) and (max-width: 992px) {
-    #title-container {
-        white-space: nowrap;
-        padding-left: 33%;
-    }
-    h1 {
-        font-size: 36px;
-    }
-}
-
-@media screen and (min-width: 993px) and (max-width: 1200px){
-    #title-container {
-        white-space: nowrap;
-        padding-left: 3vw; /*10%*/
-    }
-    h1 {
-        font-size: 36px;
-    }
-}
-
-@media screen and (min-width: 1201px) and (max-width: 1600px){
-    #title-container {
-        white-space: nowrap;
-        padding-left: 6vw; /*17%*/
-    }
-    h1 {
-        font-size: 36px;
-    }
-}
-
-@media screen and (min-width: 1601px) and (max-width: 2000px){
-    #title-container {
-        white-space: nowrap;
-        padding-left: 7vw;
-    }
-    h1 {
-        font-size: 36px;
-    }
-}
-
-@media screen and (min-width: 2001px){
-    .title-bar {
-        text-align: center;
-    }
-    h1 {
-        font-size: 36px;
+        font-size: 27px;
     }
 }

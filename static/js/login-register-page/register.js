@@ -44,20 +44,14 @@ $(document).ready(function() {
     });
 
     $registerOpen.on('click', function() {
-        $titleCategory.fadeOut(300, function() {
-            $titleCategory.text('register');
-            $titleCategory.fadeIn(600);
-        });
+        PageNavigationUtil.changeTitle('register');
         $('#login-window').fadeOut(300, function() {
             $('#register-window').fadeIn(600);
         });
     })
 
     $registerCancel.on('click', function() {
-        $titleCategory.fadeOut(300, function() {
-            $titleCategory.text('login');
-            $titleCategory.fadeIn(600);
-        });
+        PageNavigationUtil.changeTitle('login');
         $('#register-window').fadeOut(300, function() {
             $('#login-window').fadeIn(600);
         });
