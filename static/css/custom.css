@@ -44,6 +44,15 @@
     color: #fc6a6a;
 }
 
+.navbar {
+    min-height: 52px;
+    margin-bottom: 15px;
+}
+
+.nav .dropdown-toggle {
+    height: 50px;
+}
+
 #title-container {
     opacity: 0;
     transition: .3s;
@@ -52,6 +61,7 @@
 
 #title-container h1 {
     font-size: 40px;
+    margin-top: 10px;
     margin-bottom: 8px;
 }
 

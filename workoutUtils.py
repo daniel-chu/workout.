@@ -17,16 +17,18 @@ def validate_user_and_password(user, attempted_password):
     return bcrypt.hashpw(attempted_password.encode('utf-8'),
         hashed_actual_pw.encode('utf-8')) == hashed_actual_pw
 
-def sign_in(username):
+def log_in(username):
     session['username'] = username
     session.permanent = True
 
+def log_out():
+    session.pop('username', None)
+
 def is_logged_in():
     if session.get('username') is None:
-        logout()
+        log_out()
         return False
     return True
 
-def logout():
-    session.pop('username', None)
-
+def retrieve_username():
+    return session.get('username');

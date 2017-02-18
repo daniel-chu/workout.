@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask.json import jsonify
 from pymongo import MongoClient
 from workoutUtils import *
@@ -15,9 +15,16 @@ sessions = db.sessions
 sets = db.sets
 exercises = db.exercises
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
     return render_template('index.html') 
+
+@app.route('/', methods=['POST'])
+def getLogs():
+    if not is_logged_in():
+        return jsonify(status='error', error='Not logged in.');
+    #TODO return actual data
+    return jsonify(status='success');
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -33,12 +40,12 @@ def login():
     loginAttemptUser = users.find_one({"username":username})
 
     if loginAttemptUser is None:
-        return jsonify(status='error', error='No account with that username.')
+        return jsonify(status='error', error='Invalid username or password.')
     if(validate_user_and_password(loginAttemptUser, password)):
-        sign_in(username)
+        log_in(username)
         return jsonify(status='success')
     else:
-        return jsonify(status='error',error='Wrong password.')
+        return jsonify(status='error',error='Invalid username or password.')
 
 @app.route('/registerUser', methods=['POST'])
 def register_user():
@@ -78,11 +85,14 @@ def register_user():
     
     return jsonify(status='success')
 
-@app.route('/getWorkouts', methods=['POST'])
-def getLogs():
-    if not is_logged_in():
-        return jsonify(status='error', error='Not logged in.');
-    #TODO return actual data
+@app.route('/retrieveUsername', methods=['POST'])
+def retrieveUsername():
+    return retrieve_username();
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    if is_logged_in():
+        log_out()
     return jsonify(status='success');
 
 if __name__ == '__main__':
