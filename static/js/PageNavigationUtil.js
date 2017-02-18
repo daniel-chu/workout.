@@ -4,7 +4,6 @@ var PageNavigationUtil = (function() {
         var $titleCategory = $('#title-category');
         var $titleContainer = $('#title-container');
         $titleCategory.stop();
-        $titleContainer.stop();
 
         $titleCategory.fadeTo(300, 0, function() {
             $titleCategory.text(title);
