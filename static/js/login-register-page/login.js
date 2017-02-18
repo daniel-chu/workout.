@@ -1,8 +1,11 @@
 $(document).ready(function() {
     var $loginButton = $('#loginButton');
+    var $registerOpen = $('#registerOpen');
+    var $allLoginButtons = $('#login-window button');
+    var $loginMessage = $('#message-login');
 
     function loginSubmit() {
-        $loginButton.attr('disable', true);
+        $allLoginButtons.prop('disabled', true);
         $.ajax({
                 type: 'POST',
                 url: '/login',
@@ -12,24 +15,28 @@ $(document).ready(function() {
                 }
             })
             .done(function(response) {
-                $loginButton.attr('disable', false);
-                $('#error-message-login').hide()
+                $loginMessage.hide();
                 if (response['status'] === 'error') {
-                    $('#error-message-login').text(response['error']).show()
+                    $allLoginButtons.prop('disabled', false);
+                    $loginMessage.addClass('error-text').text(response['error']).show()
                         .effect("shake", { direction: "up", times: 3, distance: 2 });
                 } else if (response['status'] === 'success') {
                     PageNavigationUtil.goToMainTrackerPage();
                 }
             })
             .fail(function(response) {
-                $loginButton.attr('disable', false);
+                $allLoginButtons.prop('disabled', false);
             });
     }
 
     $loginButton.on('click', loginSubmit);
 
+    $registerOpen.on('click', function() {
+        PageNavigationUtil.goToRegistrationPage();
+    })
+
     $('#login-window .enter-to-submit').on('keydown', function(event) {
-        if ($loginButton.attr('disable') == undefined || $loginButton.attr('disable') == 'false') {
+        if ($loginButton.prop('disabled') == undefined || $loginButton.prop('disabled') == false) {
             if (event.which == 13) {
                 loginSubmit();
             }

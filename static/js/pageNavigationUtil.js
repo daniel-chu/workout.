@@ -12,25 +12,28 @@ var PageNavigationUtil = (function() {
         });
     }
 
-    function renderPageFrom(title, htmlpath) {
+    function renderPageFrom(title, htmlpath, callback) {
         handleTitleChange(title);
         var $contentWindow = $('#content-window');
         $contentWindow.fadeOut(300, function() {
-            $contentWindow.load(htmlpath);
+            $contentWindow.load(htmlpath, callback);
             $contentWindow.fadeIn(600);
         });
 
     }
 
     return {
-        goToLoginPage: function() {
-            renderPageFrom('login', '/static/html/login-page.html');
+        goToLoginPage: function(callback) {
+            callback = callback || function() { /*empty function*/ };
+            renderPageFrom('login', '/static/html/login.html', callback);
         },
-        goToMainTrackerPage: function() {
-            renderPageFrom('tracker', '/static/html/main-tracker.html');
+        goToMainTrackerPage: function(callback) {
+            callback = callback || function() { /*empty function*/ };
+            renderPageFrom('tracker', '/static/html/main-tracker.html', callback);
         },
-        changeTitle: function(title) {
-            handleTitleChange(title);
+        goToRegistrationPage: function(callback) {
+            callback = callback || function() { /*empty function*/ };
+            renderPageFrom('register', '/static/html/register.html', callback)
         }
     }
 })();

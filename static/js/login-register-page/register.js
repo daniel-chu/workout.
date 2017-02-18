@@ -1,12 +1,11 @@
 $(document).ready(function() {
-    var $titleCategory = $('#title-category');
     var $registerButton = $('#registerButton');
-    var $registerOpen = $('#registerOpen');
     var $registerCancel = $('#registerCancel');
-    var $registerPopup = $('#register-popup');
+    var $allRegisterButtons = $('#register-window button');
+    var $registerMessage = $('#message-register');
 
     function registerSubmit() {
-        $registerButton.attr('disable', true);
+        $allRegisterButtons.prop('disabled', true);
         $.ajax({
                 type: 'POST',
                 url: '/registerUser',
@@ -19,42 +18,36 @@ $(document).ready(function() {
                 }
             })
             .done(function(response) {
-                $registerButton.attr('disable', false);
-                $('#error-message-register').hide();
+                $registerMessage.hide();
                 if (response['status'] === 'error') {
-                    $('#error-message-register').text(response['error']).show()
+                    $allRegisterButtons.prop('disabled', false);
+                    $registerMessage.text(response['error']).show()
                         .effect("shake", { direction: "up", times: 3, distance: 2 });
                 } else if (response['status'] === 'success') {
-                    PageNavigationUtil.goToMainTrackerPage();
+                    PageNavigationUtil.goToLoginPage(function() {
+                        $('#message-login').text('Registration successful! You can now login.').fadeIn(600);
+                    });
                 }
             })
             .fail(function(response) {
-                $registerButton.attr('disable', false);
+                $allRegisterButtons.prop('disabled', false);
             });
     }
 
     $registerButton.on('click', registerSubmit);
 
+    $registerCancel.on('click', function() {
+        PageNavigationUtil.goToLoginPage();
+    })
+
     $('#register-window .enter-to-submit').on('keydown', function(event) {
-        if ($registerButton.attr('disable') == undefined || $registerButton.attr('disable') == 'false') {
+        if ($registerButton.prop('disabled') == undefined || $registerButton.prop('disabled') == false) {
             if (event.which == 13) {
                 registerSubmit();
             }
         }
     });
 
-    $registerOpen.on('click', function() {
-        PageNavigationUtil.changeTitle('register');
-        $('#login-window').fadeOut(300, function() {
-            $('#register-window').fadeIn(600);
-        });
-    })
 
-    $registerCancel.on('click', function() {
-        PageNavigationUtil.changeTitle('login');
-        $('#register-window').fadeOut(300, function() {
-            $('#login-window').fadeIn(600);
-        });
-    })
 
 });

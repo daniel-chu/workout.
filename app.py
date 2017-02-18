@@ -75,8 +75,7 @@ def register_user():
 
     hashed_and_salted_pw = hash_password(password)
     users.insert_one({"_id":gen_unique_string_id(), "username":username, "email":email, "password":hashed_and_salted_pw})
-
-    sign_in(username)
+    
     return jsonify(status='success')
 
 @app.route('/getWorkouts', methods=['POST'])
