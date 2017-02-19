@@ -54,41 +54,73 @@ var PageNavigationUtil = (function() {
         }
     }
 
+    function goToPageIfLoggedIn(shouldGoTo, callback) {
+        $.ajax({
+                type: 'POST',
+                url: '/',
+                data: {}
+            })
+            .done(function(response) {
+                if (response['status'] == 'success') {
+                    if (shouldGoTo) {
+                        (callback)();
+                    } else {
+                        window.location.hash = '#tracker';
+                    }
+                } else {
+                    if (!shouldGoTo) {
+                        (callback)();
+                    } else {
+                        window.location.hash = '#login';
+                    }
+                }
+            });
+    }
+
     return {
         goToLoginPage: function(callback) {
-            callback = callback || function() { /*empty function*/ };
-            window.location.hash = "#login";
-            renderPageFrom('login', '/static/html/login.html', callback);
-            removeNavBarItems();
+            goToPageIfLoggedIn(false, function() {
+                callback = callback || function() { /*empty function*/ };
+                window.location.hash = "#login";
+                renderPageFrom('login', '/static/html/login.html', callback);
+                removeNavBarItems();
+            });
         },
 
         goToRegistrationPage: function(callback) {
-            callback = callback || function() { /*empty function*/ };
-            window.location.hash = "#register";
-            renderPageFrom('register', '/static/html/register.html', callback)
-            removeNavBarItems();
+            goToPageIfLoggedIn(false, function() {
+                callback = callback || function() { /*empty function*/ };
+                window.location.hash = "#register";
+                renderPageFrom('register', '/static/html/register.html', callback)
+                removeNavBarItems();
+            });
         },
 
         goToMainTrackerPage: function(callback) {
-            callback = callback || function() { /*empty function*/ };
-            window.location.hash = "#tracker";
-            renderPageFrom('tracker', '/static/html/main-tracker.html', callback);
-            loadNavBarItems();
+            goToPageIfLoggedIn(true, function() {
+                callback = callback || function() { /*empty function*/ };
+                window.location.hash = "#tracker";
+                renderPageFrom('tracker', '/static/html/main-tracker.html', callback);
+                loadNavBarItems();
+            });
         },
 
         goToExercisesPage: function(callback) {
-            callback = callback || function() { /*empty function*/ };
-            window.location.hash = "#exercises";
-            renderPageFrom('exercises', '/static/html/exercises.html', callback);
-            loadNavBarItems();
-
+            goToPageIfLoggedIn(true, function() {
+                callback = callback || function() { /*empty function*/ };
+                window.location.hash = "#exercises";
+                renderPageFrom('exercises', '/static/html/exercises.html', callback);
+                loadNavBarItems();
+            });
         },
 
         goToStatsPage: function(callback) {
-            callback = callback || function() { /*empty function*/ };
-            window.location.hash = "#stats";
-            renderPageFrom('stats', '/static/html/stats.html', callback);
-            loadNavBarItems();
+            goToPageIfLoggedIn(true, function() {
+                callback = callback || function() { /*empty function*/ };
+                window.location.hash = "#stats";
+                renderPageFrom('stats', '/static/html/stats.html', callback);
+                loadNavBarItems();
+            });
         },
 
         logOutUser: function(callback) {
