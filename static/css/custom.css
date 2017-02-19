@@ -1,4 +1,4 @@
-.inline-header {
+.inline-element {
     display: inline-block;
 }
 
@@ -51,6 +51,11 @@
 
 .nav .dropdown-toggle {
     height: 50px;
+}
+
+.container-fluid>.navbar-collapse {
+    margin-right: -15px;
+    margin-left: -15px;
 }
 
 #title-container {
