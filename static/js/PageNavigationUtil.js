@@ -21,7 +21,7 @@ var PageNavigationUtil = (function() {
         $contentWindow.fadeOut(300, function() {
             $contentWindow.load(htmlpath, function() {
                 $contentWindow.fadeIn(600);
-                callback();
+                (callback)();
             });
         });
     }
@@ -107,17 +107,29 @@ var PageNavigationUtil = (function() {
         navigateToHashUrl: function(hashUrl, callback) {
             callback = callback || function() { /*empty function*/ };
             if (hashUrl == '#login') {
-                PageNavigationUtil.goToLoginPage();
+                PageNavigationUtil.goToLoginPage(callback);
             } else if (hashUrl == '#register') {
-                PageNavigationUtil.goToRegistrationPage();
+                PageNavigationUtil.goToRegistrationPage(callback);
             } else if (hashUrl == '#tracker') {
-                PageNavigationUtil.goToMainTrackerPage();
+                PageNavigationUtil.goToMainTrackerPage(function() {
+                    $('.nav-tab').removeClass('active');
+                    $('#nav-tracker-tab').addClass('active');
+                    (callback)();
+                });
             } else if (hashUrl == '#exercises') {
-                PageNavigationUtil.goToExercisesPage();
+                PageNavigationUtil.goToExercisesPage(function() {
+                    $('.nav-tab').removeClass('active');
+                    $('#nav-exercises-tab').addClass('active');
+                    (callback)();
+                });
             } else if (hashUrl == '#stats') {
-                PageNavigationUtil.goToStatsPage();
+                PageNavigationUtil.goToStatsPage(function() {
+                    $('.nav-tab').removeClass('active');
+                    $('#nav-stats-tab').addClass('active');
+                    (callback)();
+                });
             } else if (hashUrl == '#logout') {
-                PageNavigationUtil.logOutUser();
+                PageNavigationUtil.logOutUser(callback);
             } else {
                 // TODO if hash url doesn't exist, do something
             }
