@@ -16,6 +16,7 @@ var PageNavigationUtil = (function() {
     function renderPageFrom(title, htmlpath, callback) {
         var $contentWindow = $('#content-window');
         $contentWindow.stop();
+        $('#fading-alert-message').hide();
 
         handleTitleChange(title);
         $contentWindow.fadeOut(300, function() {
@@ -65,13 +66,19 @@ var PageNavigationUtil = (function() {
                     if (shouldGoTo) {
                         (callback)();
                     } else {
-                        window.location.hash = '#tracker';
+                        pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = true;
+                        PageNavigationUtil.goToMainTrackerPage(function() {
+                            GeneralUtil.displayFadeAlert("You are already logged in.");
+                        });
                     }
                 } else {
                     if (!shouldGoTo) {
                         (callback)();
                     } else {
-                        window.location.hash = '#login';
+                        pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = true;
+                        PageNavigationUtil.goToLoginPage(function() {
+                            GeneralUtil.displayFadeAlert("Please log in.");
+                        });
                     }
                 }
             });
