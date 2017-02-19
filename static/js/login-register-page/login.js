@@ -1,6 +1,5 @@
 $(document).ready(function() {
     var $loginButton = $('#loginButton');
-    var $registerOpen = $('#registerOpen');
     var $allLoginButtons = $('#login-window button');
     var $loginMessage = $('#message-login');
 
@@ -19,9 +18,9 @@ $(document).ready(function() {
                 if (response['status'] === 'error') {
                     $allLoginButtons.prop('disabled', false);
                     $loginMessage.addClass('error-text').text(response['error']).show()
-                        .effect("shake", { direction: "up", times: 3, distance: 2 });
+                        .effect('shake', { direction: 'up', times: 3, distance: 2 });
                 } else if (response['status'] === 'success') {
-                    PageNavigationUtil.goToMainTrackerPage();
+                    window.location.hash = 'tracker'
                 }
             })
             .fail(function(response) {
@@ -30,10 +29,6 @@ $(document).ready(function() {
     }
 
     $loginButton.on('click', loginSubmit);
-
-    $registerOpen.on('click', function() {
-        PageNavigationUtil.goToRegistrationPage();
-    })
 
     $('#login-window .enter-to-submit').on('keydown', function(event) {
         if ($loginButton.prop('disabled') == undefined || $loginButton.prop('disabled') == false) {

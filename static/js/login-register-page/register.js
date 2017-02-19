@@ -1,6 +1,5 @@
 $(document).ready(function() {
     var $registerButton = $('#registerButton');
-    var $registerCancel = $('#registerCancel');
     var $allRegisterButtons = $('#register-window button');
     var $registerMessage = $('#message-register');
 
@@ -24,6 +23,7 @@ $(document).ready(function() {
                     $registerMessage.text(response['error']).show()
                         .effect("shake", { direction: "up", times: 3, distance: 2 });
                 } else if (response['status'] === 'success') {
+                    pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = true;
                     PageNavigationUtil.goToLoginPage(function() {
                         $('#message-login').text('Registration successful! You can now login.').fadeIn(600);
                     });
@@ -35,10 +35,6 @@ $(document).ready(function() {
     }
 
     $registerButton.on('click', registerSubmit);
-
-    $registerCancel.on('click', function() {
-        PageNavigationUtil.goToLoginPage();
-    })
 
     $('#register-window .enter-to-submit').on('keydown', function(event) {
         if ($registerButton.prop('disabled') == undefined || $registerButton.prop('disabled') == false) {

@@ -92,14 +92,13 @@ var PageNavigationUtil = (function() {
         },
 
         logOutUser: function(callback) {
-            window.location.hash = "#";
             $.ajax({
                     type: 'POST',
                     url: '/logout',
                     data: {}
                 })
                 .done(function() {
-                    PageNavigationUtil.goToLoginPage();
+                    window.location.hash = "#login"
                 });
             removeNavBarItems();
         },

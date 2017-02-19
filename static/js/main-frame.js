@@ -1,9 +1,14 @@
+var pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = false;
+
 $(document).ready(function() {
 
     $(window).on('hashchange', function() {
-        if (window.location.hash) {
-            PageNavigationUtil.navigateToHashUrl(window.location.hash);
+        if (!pageLoadRequestSentAlreadyHashChangeTriggerUnneeded) {
+            if (window.location.hash) {
+                PageNavigationUtil.navigateToHashUrl(window.location.hash);
+            }
         }
+        pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = false;
     });
 
     var shiftDist = $('#title-container').width() / 2;
@@ -16,12 +21,12 @@ $(document).ready(function() {
             })
             .done(function(response) {
                 if (response['status'] === 'error' && response['error'] === 'Not logged in.') {
-                    PageNavigationUtil.goToLoginPage();
+                    window.location.hash = "#login";
                 } else if (response['status'] === 'success') {
                     if (window.location.hash) {
                         PageNavigationUtil.navigateToHashUrl(window.location.hash);
                     } else {
-                        PageNavigationUtil.goToMainTrackerPage();
+                        window.location.hash = "#tracker";
                     }
                 }
             });
