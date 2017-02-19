@@ -20,7 +20,7 @@ def index():
     return render_template('index.html') 
 
 @app.route('/', methods=['POST'])
-def getLogs():
+def check_logged_in():
     if not is_logged_in():
         return jsonify(status='error', error='Not logged in.');
     #TODO return actual data

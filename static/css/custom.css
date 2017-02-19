@@ -15,8 +15,12 @@
     width: 35%;
 }
 
+.glyphicon-user {
+    padding-right: 5px;
+}
+
 #login-window > h1 {
-    margin-bottom: 5;
+    margin-bottom: 5px;
 }
 
 .login-page-button {
