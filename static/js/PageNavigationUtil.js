@@ -130,18 +130,6 @@ var PageNavigationUtil = (function() {
             });
         },
 
-        logOutUser: function(callback) {
-            $.ajax({
-                    type: 'POST',
-                    url: '/logout',
-                    data: {}
-                })
-                .done(function() {
-                    window.location.hash = "#login"
-                });
-            removeNavBarItems();
-        },
-
         // TODO turn this into object/dict
         navigateToHashUrl: function(hashUrl, callback) {
             callback = callback || function() { /*empty function*/ };
@@ -167,8 +155,6 @@ var PageNavigationUtil = (function() {
                     $('#nav-stats-tab').addClass('active');
                     (callback)();
                 });
-            } else if (hashUrl == '#logout') {
-                PageNavigationUtil.logOutUser(callback);
             } else {
                 // TODO if hash url doesn't exist, do something
             }

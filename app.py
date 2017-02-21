@@ -6,7 +6,7 @@ import jinja2
 import os
 
 app = Flask(__name__)
-app.secret_key=os.environ.get('SECRET_KEY')
+app.secret_key = os.environ.get('SECRET_KEY')
 
 client = MongoClient(os.environ.get('MONGO_URI'))
 db = client['workout-log']
