@@ -16,4 +16,10 @@ $(document).ready(function() {
                 }
             });
     });
+
+    $('.nav-bar-page-tab').on('click', function() {
+        if ($('#collapsible-navigationbar').hasClass('collapse in')) {
+            $('.navbar-toggle').click();
+        }
+    });
 });

@@ -130,7 +130,7 @@ var PageNavigationUtil = (function() {
             });
         },
 
-        // TODO turn this into object/dict
+        // TODO turn this into object/dict (maybe)
         navigateToHashUrl: function(hashUrl, callback) {
             callback = callback || function() { /*empty function*/ };
             if (hashUrl == '#login') {
@@ -156,7 +156,7 @@ var PageNavigationUtil = (function() {
                     (callback)();
                 });
             } else {
-                // TODO if hash url doesn't exist, do something
+                // TODO if hash url doesn't exist, do something? (or nothing)
             }
         }
     }
