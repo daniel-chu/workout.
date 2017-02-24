@@ -10,10 +10,11 @@ app.secret_key = os.environ.get('SECRET_KEY')
 
 client = MongoClient(os.environ.get('MONGO_URI'))
 db = client['workout-log']
+
 users = db.users
-sessions = db.sessions
-sets = db.sets
 exercises = db.exercises
+workouts = db.workouts
+sets = db.sets
 
 @app.route('/')
 def index():
@@ -70,7 +71,9 @@ def register_user():
     if password != password_confirmed:
         return jsonify(status='error', error='Passwords do not match.')
 
-    # TODO CHECK FOR VALID USERNAME/PASSWORD/EMAIL
+    # TODO CHECK FOR VALID USERNAME
+    # TODO CHECK FOR VALID PASSWORD
+    # TODO CHECK FOR VALID EMAIL
 
     existing_email = users.find_one({'email':email})
     existing_username = users.find_one({'username':username})

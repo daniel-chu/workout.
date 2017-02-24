@@ -1,35 +1,14 @@
-.inline-element {
-    display: inline-block;
-}
-
-#login-window,
-#register-window {
-    width: 800px;
-    max-width: 100%;
-    margin: auto;
-    text-align: center;
-}
-
-#registerButton {
-    margin-top: 10px;
-    width: 35%;
-}
-
-.glyphicon-user {
-    padding-right: 5px;
-}
-
-#login-window > h1 {
-    margin-bottom: 5px;
-}
-
-.login-page-button {
-    margin: 5px;
-    width: 25%;
+.container-fluid>.navbar-collapse {
+    margin-right: -15px;
+    margin-left: -15px;
 }
 
 #content-window {
     position: relative;
+}
+
+.error-text {
+    color: #fc6a6a;
 }
 
 #fading-alert-message {
@@ -45,10 +24,6 @@
     transform: translateX(-50%);
 }
 
-#login-window div {
-    padding: 0;
-}
-
 .form-control {
     margin: auto;
     width: 85%;
@@ -56,13 +31,47 @@
     margin-bottom: 5px;
 }
 
+.glyphicon-user {
+    padding-right: 5px;
+}
+
+.inline-element {
+    display: inline-block;
+}
+
+.login-page-button {
+    margin: 5px;
+    width: 25%;
+}
+
+#logout-button {
+    cursor: pointer;
+}
+
+#login-window > h1 {
+    margin-bottom: 5px;
+}
+
+#login-window div {
+    padding: 0;
+}
+
+#login-window,
+#register-window {
+    width: 800px;
+    max-width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+#registerButton {
+    margin-top: 10px;
+    width: 35%;
+}
+
 .login-register-info-text {
     margin-bottom: 5px;
     display: none;
-}
-
-.error-text {
-    color: #fc6a6a;
 }
 
 .navbar {
@@ -72,11 +81,6 @@
 
 .nav .dropdown-toggle {
     height: 50px;
-}
-
-.container-fluid>.navbar-collapse {
-    margin-right: -15px;
-    margin-left: -15px;
 }
 
 #title-container {
