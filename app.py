@@ -71,8 +71,15 @@ def register_user():
     if password != password_confirmed:
         return jsonify(status='error', error='Passwords do not match.')
 
-    # TODO CHECK FOR VALID USERNAME
-    # TODO CHECK FOR VALID PASSWORD
+    if not valid_username_length(username):
+        return jsonify(status='error',
+            error='Username must be 3-20 characters long.');
+    if not valid_username_characters(username):
+        return jsonify(status='error',
+            error='Username can only contain letters, numbers, periods(.), underscores(_), and dashes(-).')
+    if not valid_password_length(password):
+        return jsonify(status='error',
+            error='Password must be between 3-32 characters long.')
     # TODO CHECK FOR VALID EMAIL
 
     existing_email = users.find_one({'email':email})

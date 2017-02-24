@@ -2,6 +2,9 @@ from flask import session
 import hashlib
 import bcrypt
 import uuid
+import re
+
+usernameRegex = re.compile('^[a-zA-Z0-9-_.]+$')
 
 def gen_unique_string_id():
     return str(uuid.uuid4());
@@ -32,3 +35,15 @@ def is_logged_in():
 
 def retrieve_username():
     return session.get('username');
+
+def valid_username_length(username):
+    return len(username) > 2 and len(username) < 21
+
+def valid_username_characters(username):
+    if re.match(usernameRegex, username):
+        return True
+    else:
+        return False
+        
+def valid_password_length(password):
+    return len(password) > 2 and len(password) < 33
