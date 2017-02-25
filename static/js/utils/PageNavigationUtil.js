@@ -107,7 +107,7 @@ var PageNavigationUtil = (function() {
             goToPageIfLoggedIn(true, function() {
                 callback = callback || function() { /*empty function*/ };
                 window.location.hash = "#tracker";
-                renderPageFrom('tracker', '/static/html/main-tracker.html', callback);
+                renderPageFrom('tracker', '/static/html/tracker.html', callback);
                 loadNavBarItems();
             });
         },
