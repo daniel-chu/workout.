@@ -3,7 +3,7 @@ var PageNavigationUtil = (function() {
     function handleTitleChange(title) {
         var $titleCategory = $('#title-category');
         var $titleContainer = $('#title-container');
-        $titleCategory.stop();
+        $titleCategory.stop({ clearQueue: true });
 
         $titleCategory.fadeTo(300, 0, function() {
             $titleCategory.text(title);
@@ -15,8 +15,8 @@ var PageNavigationUtil = (function() {
 
     function renderPageFrom(title, htmlpath, callback) {
         var $contentWindow = $('#content-window');
-        $contentWindow.stop();
-        $('#fading-alert-message').hide();
+        $contentWindow.stop({ clearQueue: true });
+        $('#fading-warning-message').hide();
 
         handleTitleChange(title);
         $contentWindow.fadeOut(300, function() {
@@ -68,7 +68,7 @@ var PageNavigationUtil = (function() {
                     } else {
                         pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = true;
                         PageNavigationUtil.goToMainTrackerPage(function() {
-                            GeneralUtil.displayFadeAlert("You are already logged in.");
+                            GeneralUtil.displayFadeWarning("You are already logged in.");
                         });
                     }
                 } else {
@@ -77,7 +77,7 @@ var PageNavigationUtil = (function() {
                     } else {
                         pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = true;
                         PageNavigationUtil.goToLoginPage(function() {
-                            GeneralUtil.displayFadeAlert("Please log in.");
+                            GeneralUtil.displayFadeWarning("Please log in.");
                         });
                     }
                 }
@@ -130,6 +130,24 @@ var PageNavigationUtil = (function() {
             });
         },
 
+        goToOwnProfilePage: function(callback) {
+            goToPageIfLoggedIn(true, function() {
+                callback = callback || function() { /*empty function*/ };
+                window.location.hash = "#profile";
+                renderPageFrom('profile', '/static/html/profile.html', callback);
+                loadNavBarItems();
+            });
+        },
+
+        goToSettingsPage: function(callback) {
+            goToPageIfLoggedIn(true, function() {
+                callback = callback || function() { /*empty function*/ };
+                window.location.hash = "#settings";
+                renderPageFrom('settings', '/static/html/settings.html', callback);
+                loadNavBarItems();
+            });
+        },
+
         // TODO turn this into object/dict (maybe)
         navigateToHashUrl: function(hashUrl, callback) {
             callback = callback || function() { /*empty function*/ };
@@ -153,6 +171,16 @@ var PageNavigationUtil = (function() {
                 PageNavigationUtil.goToStatsPage(function() {
                     $('.nav-tab').removeClass('active');
                     $('#nav-stats-tab').addClass('active');
+                    (callback)();
+                });
+            } else if (hashUrl == '#profile') {
+                PageNavigationUtil.goToOwnProfilePage(function() {
+                    $('.nav-tab').removeClass('active');
+                    (callback)();
+                });
+            } else if (hashUrl == '#settings') {
+                PageNavigationUtil.goToSettingsPage(function() {
+                    $('.nav-tab').removeClass('active');
                     (callback)();
                 });
             } else {

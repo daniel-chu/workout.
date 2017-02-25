@@ -42,7 +42,7 @@
     margin: 2px;
 }
 
-#fading-alert-message {
+.fading-popup-message {
     display: none;
     width: 60%;
     text-align: center;

@@ -1,13 +1,23 @@
 var GeneralUtil = (function() {
 
     return {
-        displayFadeAlert: function(message) {
-            $alertMessage = $('#fading-alert-message');
-            $alertMessage.hide().stop();
+        displayFadeWarning: function(message) {
+            var $warningMessage = $('#fading-warning-message');
+            $warningMessage.hide().stop({ clearQueue: true });
 
-            $('#fading-alert-message p').text(message);
-            $alertMessage.fadeIn(2000, function() {
-                $alertMessage.delay(5000).fadeOut(2000);
+            $('#fading-warning-message p').text(message);
+            $warningMessage.fadeIn(2000, function() {
+                $warningMessage.delay(5000).fadeOut(2000);
+            })
+        },
+
+        displayFadeInfo: function(message) {
+            var $infoMessage = $('#fading-info-message');
+            $infoMessage.hide().stop({ clearQueue: true });
+
+            $('#fading-info-message p').text(message);
+            $infoMessage.fadeIn(2000, function() {
+                $infoMessage.delay(5000).fadeOut(2000);
             })
         },
 

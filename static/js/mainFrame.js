@@ -11,9 +11,12 @@ $(document).ready(function() {
         pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = false;
     });
 
-    $('#fading-alert-message .close').on('click', function() {
-        $('#fading-alert-message').hide();
-    })
+    $('.fading-popup-message .close').on('click', function() {
+        $('.fading-popup-message').stop({ clearQueue: true }).fadeOut(200);
+    });
+
+    //TODO remove this when it reaches usable state and create a development branch and release branch
+    GeneralUtil.displayFadeInfo("Development still in progress, features marked with * may not work yet.");
 
     var $titleContainer = $('#title-container');
     var shiftDist = $titleContainer.width() / 2;
