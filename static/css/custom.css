@@ -4,7 +4,7 @@
 
 #add-workout-button {
     width: 50%;
-    margin: 5px 0px 15px 0px;
+    margin: 5px 0;
 }
 
 .bootstrap-select.form-control:not([class*=col-]) {
@@ -107,6 +107,11 @@
     margin: auto;
 }
 
+.modal-dialog {
+    position: relative;
+    top: 20px;
+}
+
 .modal-header,
 .modal-body,
 .modal-footer {
@@ -129,6 +134,7 @@
 
 #option-two-input-container .col-sm-3 {
     text-align: right;
+    padding: 0 5px 0 15px;
 }
 
 .panel .panel-heading h5 {
@@ -206,15 +212,21 @@
 }
 
 @media screen and (max-width: 767px) {
+    #exercise-name-input,
+    #weight-value-input {
+        margin: auto;
+    }
     .modal-body label {
         display: none;
     }
-    #weight-value-input,
-    #exercise-name-input {
+    .modal-dialog {
+        max-width: 350px;
         margin: auto;
     }
-    #reps-or-time-selector {
-        width: 100px;
+    #option-two-input-container .col-xs-8 {
+        padding: 0;
     }
-
+    #reps-or-time-input {
+        max-width: 205px;
+    }
 }
