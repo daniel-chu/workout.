@@ -103,7 +103,7 @@
 }
 
 .modal {
-    width: 50%;
+    width: auto;
     margin: auto;
 }
 
@@ -127,7 +127,7 @@
     margin-bottom: 10px;
 }
 
-#option-two-input-container .col-md-3 {
+#option-two-input-container .col-sm-3 {
     text-align: right;
 }
 
@@ -203,4 +203,18 @@
     #title-container h1 {
         font-size: 29px;
     }
+}
+
+@media screen and (max-width: 767px) {
+    .modal-body label {
+        display: none;
+    }
+    #weight-value-input,
+    #exercise-name-input {
+        margin: auto;
+    }
+    #reps-or-time-selector {
+        width: 100px;
+    }
+
 }
