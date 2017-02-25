@@ -25,7 +25,7 @@ $(document).ready(function() {
             if (response['status'] === 'success') {
                 var allWorkoutSessions = JSON.parse(response['allWorkoutSessions']);
                 //TODO do this
-                console.log(allWorkoutSessions);
+                Workout.renderMultipleWorkoutSessions(allWorkoutSessions);
             }
         });
 });
