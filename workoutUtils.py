@@ -5,6 +5,7 @@ import uuid
 import re
 
 usernameRegex = re.compile('^[a-zA-Z0-9-_.]+$')
+emailRegex = re.compile('^.+@.+\..+$')
 
 def gen_unique_string_id():
     return str(uuid.uuid4());
@@ -42,8 +43,12 @@ def valid_username_length(username):
 def valid_username_characters(username):
     if re.match(usernameRegex, username):
         return True
-    else:
-        return False
-        
+    return False
+
 def valid_password_length(password):
     return len(password) > 2 and len(password) < 33
+
+def valid_email_pattern(email):
+    if re.match(emailRegex, email):
+        return True
+    return False

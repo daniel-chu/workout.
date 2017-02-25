@@ -29,16 +29,16 @@ def check_logged_in():
 
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.form.get("username")
-    password = request.form.get("password")
+    username = request.form.get('username')
+    password = request.form.get('password')
+    lowerCaseUsername = username.lower()
 
     if not username:
         return jsonify(status='error', error='No username given.')
     if not password:
         return jsonify(status='error', error='No password given.')
 
-    username = username.lower()
-    loginAttemptUser = users.find_one({"username":username})
+    loginAttemptUser = users.find_one({'username':lowerCaseUsername})
 
     if loginAttemptUser is None:
         return jsonify(status='error', error='Invalid username or password.')
@@ -56,7 +56,7 @@ def register_user():
     username = request.form.get('username')
     username = username.lower()
     password = request.form.get('password')
-    password_confirmed = request.form.get("passwordConfirm")
+    password_confirmed = request.form.get('passwordConfirm')
 
     if not name:
         return jsonify(status='error', error='Please enter your name.')
@@ -71,6 +71,8 @@ def register_user():
     if password != password_confirmed:
         return jsonify(status='error', error='Passwords do not match.')
 
+    if not valid_email_pattern(email):
+        return jsonify(status='error', error='Please enter a valid email.')
     if not valid_username_length(username):
         return jsonify(status='error',
             error='Username must be 3-20 characters long.');
@@ -80,7 +82,6 @@ def register_user():
     if not valid_password_length(password):
         return jsonify(status='error',
             error='Password must be between 3-32 characters long.')
-    # TODO CHECK FOR VALID EMAIL
 
     existing_email = users.find_one({'email':email})
     existing_username = users.find_one({'username':username})
@@ -91,7 +92,7 @@ def register_user():
         return jsonify(status='error', error='Email already in use.')
 
     hashed_and_salted_pw = hash_password(password)
-    users.insert_one({"_id":gen_unique_string_id(), "username":username, "email":email, "password":hashed_and_salted_pw})
+    users.insert_one({'_id':gen_unique_string_id(), 'username':username, 'email':email, 'password':hashed_and_salted_pw})
     
     return jsonify(status='success')
 
