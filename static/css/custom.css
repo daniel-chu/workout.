@@ -4,7 +4,7 @@
 
 #add-workout-button {
     width: 50%;
-    margin: 5px 0;
+    margin: 5px 0 10px 0;
 }
 
 .bootstrap-select.form-control:not([class*=col-]) {
@@ -121,7 +121,7 @@
 
 .modal-header h3 {
     margin-top: 5px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .modal-footer {
@@ -198,7 +198,8 @@
 .workout {
     width: 90%;
     margin: auto;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 @media screen and (min-width: 300px) and (max-width: 450px) {
