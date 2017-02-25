@@ -1,3 +1,28 @@
+.add-set-input {
+    margin: 2px;
+}
+
+#add-workout-button {
+    width: 50%;
+    margin: 5px 0px 15px 0px;
+}
+
+.bootstrap-select.form-control:not([class*=col-]) {
+    width: 80px;
+}
+
+.bootstrap-select.btn-group .btn {
+    padding: 8px 12px 8px 25px;
+}
+
+.bootstrap-select.btn-group .btn .caret {
+    left: 12px;
+}
+
+.bootstrap-select.btn-group .btn .filter-option {
+    text-align: right;
+}
+
 .container-fluid>.navbar-collapse {
     margin-right: -15px;
     margin-left: -15px;
@@ -9,6 +34,12 @@
 
 .error-text {
     color: #fc6a6a;
+}
+
+#exercise-name-input,
+#weight-value-input,
+#reps-or-time-input {
+    margin: 2px;
 }
 
 #fading-alert-message {
@@ -64,16 +95,53 @@
     text-align: center;
 }
 
-#registerButton {
-    margin-top: 10px;
-    width: 35%;
-}
-
 .login-register-info-text {
     margin-bottom: 5px;
     display: none;
     width: 90%;
     margin: auto;
+}
+
+.modal {
+    width: 50%;
+    margin: auto;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    border: none;
+    padding: 5px;
+}
+
+.modal-header h3 {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.modal-footer {
+    margin-bottom: 10px;
+}
+
+#option-two-input-container {
+    margin-bottom: 10px;
+}
+
+#option-two-input-container .col-md-3 {
+    text-align: right;
+}
+
+.panel .panel-heading h5 {
+    display: inline-block;
+}
+
+.panel .panel-heading button {
+    float: right;
+    margin-top: 3px;
+}
+
+.panel-heading {
+    padding: 3px 10px;
 }
 
 .navbar {
@@ -83,6 +151,27 @@
 
 .nav .dropdown-toggle {
     height: 50px;
+}
+
+#registerButton {
+    margin-top: 10px;
+    width: 35%;
+}
+
+#reps-or-time-selector,
+.bootstrap-select {
+    margin: 2px 0;
+    color: white;
+    background-color: #272b30;
+}
+
+#submit-set-info-button,
+#cancel-set-info-button {
+    margin-bottom: 5px;
+}
+
+#submit-set-info-button {
+    width: 70%;
 }
 
 #title-container {
@@ -100,7 +189,17 @@
     margin-bottom: 8px;
 }
 
+.workout {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
 @media screen and (min-width: 300px) and (max-width: 450px) {
+    .modal {
+        width: 90%;
+        margin: auto;
+    }
     #title-container h1 {
         font-size: 29px;
     }
