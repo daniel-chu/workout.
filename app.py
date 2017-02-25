@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask.json import jsonify
+from bson import json_util
 from pymongo import MongoClient
 from workoutUtils import *
 import jinja2
@@ -13,7 +14,7 @@ db = client['workout-log']
 
 users = db.users
 exercises = db.exercises
-workouts = db.workouts
+workoutSessions = db.workoutsessions
 sets = db.sets
 
 @app.route('/')
@@ -24,8 +25,7 @@ def index():
 def check_logged_in():
     if not is_logged_in():
         return jsonify(status='error', error='Not logged in.');
-    #TODO return actual data
-    return jsonify(status='success');
+    return jsonify(status='success')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -75,7 +75,7 @@ def register_user():
         return jsonify(status='error', error='Please enter a valid email.')
     if not valid_username_length(username):
         return jsonify(status='error',
-            error='Username must be 3-20 characters long.');
+            error='Username must be 3-20 characters long.')
     if not valid_username_characters(username):
         return jsonify(status='error',
             error='Username can only contain letters, numbers, periods(.), underscores(_), and dashes(-).')
@@ -92,19 +92,39 @@ def register_user():
         return jsonify(status='error', error='Email already in use.')
 
     hashed_and_salted_pw = hash_password(password)
-    users.insert_one({'_id':gen_unique_string_id(), 'username':username, 'email':email, 'password':hashed_and_salted_pw})
+    users.insert({'_id':gen_unique_string_id(), 'username':username, 'email':email, 'password':hashed_and_salted_pw})
     
     return jsonify(status='success')
 
-@app.route('/retrieveUsername', methods=['POST'])
+@app.route('/retrieveUsername', methods=['GET'])
 def retrieveUsername():
-    return retrieve_username();
+    return retrieve_username()
+
+@app.route('/addWorkoutSession', methods=['POST'])
+def addWorkoutSession():
+    dateString = request.form.get('dateString')
+    dateNumber = request.form.get('dateNumber')
+    username = retrieve_username().lower()
+    userToAddTo = users.find_one({'username': username});
+    if userToAddTo is not None:
+        newWorkoutSession = workoutSessions.insert({'_id':gen_unique_string_id(),
+            'userId':userToAddTo['_id'], 'dateString':dateString, 'dateNumber':dateNumber})
+    return jsonify(status='success', newWorkoutSession=json_util.dumps(newWorkoutSession))
+
+
+@app.route('/getWorkoutSessions', methods=['POST'])
+def getWorkoutSessions():
+    username = retrieve_username().lower()
+    userToAddTo = users.find_one({'username': username});
+    resultWorkoutSessions = workoutSessions.find({'userId':userToAddTo['_id']}).sort('dateNumber', -1)
+
+    return jsonify(status='success', allWorkoutSessions=json_util.dumps(resultWorkoutSessions));
 
 @app.route('/logout', methods=['POST'])
 def logout():
     if is_logged_in():
         log_out()
-    return jsonify(status='success');
+    return jsonify(status='success')
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT'))

@@ -6,6 +6,5 @@ var Sets = (function() {
         createNewSet: function() {
 
         }
-
     }
 })();

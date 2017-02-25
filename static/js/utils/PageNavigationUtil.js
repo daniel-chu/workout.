@@ -33,7 +33,7 @@ var PageNavigationUtil = (function() {
             var username = '';
 
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: '/retrieveUsername',
                 data: {}
             }).done(function(response) {

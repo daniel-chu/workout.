@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     var $repsOrTimeSelector = $('#reps-or-time-selector');
-
     $repsOrTimeSelector.selectpicker();
 
     $('#add-workout-button').on('click', function() {
@@ -15,6 +14,18 @@ $(document).ready(function() {
 
     $('#submit-set-info-button').on('click', function() {
         // TODO send to database and add to UI
-        
+
     });
+
+    $.ajax({
+            type: 'POST',
+            url: '/getWorkoutSessions'
+        })
+        .done(function(response) {
+            if (response['status'] === 'success') {
+                var allWorkoutSessions = JSON.parse(response['allWorkoutSessions']);
+                //TODO do this
+                console.log(allWorkoutSessions);
+            }
+        });
 });
