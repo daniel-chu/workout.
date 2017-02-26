@@ -2,6 +2,12 @@ var pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = false;
 
 $(document).ready(function() {
 
+    $(window).on('resize', function() {
+        var $titleContainer = $('#title-container');
+        var shiftDist = $titleContainer.width() / 2;
+        $titleContainer.css('margin-left', 'calc(50% - ' + shiftDist + 'px)');
+    })
+
     $(window).on('hashchange', function() {
         if (!pageLoadRequestSentAlreadyHashChangeTriggerUnneeded) {
             if (window.location.hash) {

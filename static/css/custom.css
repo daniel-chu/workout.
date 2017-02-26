@@ -4,6 +4,7 @@
 
 #add-workout-button {
     width: 50%;
+    max-width: 280px;
     margin: 5px 0 10px 0;
 }
 
@@ -37,7 +38,7 @@
 }
 
 #exercise-name-input,
-#weight-value-input,
+#weight-or-dist-input,
 #reps-or-time-input {
     margin: 2px;
 }
@@ -201,6 +202,7 @@
 
 .workout {
     width: 90%;
+    max-width: 510px;
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -218,7 +220,7 @@
 
 @media screen and (max-width: 767px) {
     #exercise-name-input,
-    #weight-value-input {
+    #weight-or-dist-input {
         margin: auto;
     }
     .modal-body label {
