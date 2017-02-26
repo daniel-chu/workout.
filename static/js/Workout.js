@@ -17,9 +17,14 @@ var Workout = (function() {
             $(this).prop('disabled', true);
             deleteWorkout($(this));
         });
+        $workoutDiv.find('.add-set-button').on('click', function() {
+            var workoutIdToStore = $(this).parents('.workout-row').attr('id').substring(2);
+            $('#add-set-popup').data('workoutId', workoutIdToStore);
+        });
     }
 
     function deleteWorkout($removeWorkoutButton) {
+        // TODO ADD CONFIRMATION POPUP
         var $workoutContainerToRemove = $removeWorkoutButton.parents('.workout-row');
         var workoutSessionId = $workoutContainerToRemove.attr('id').substring(2);
         $.ajax({

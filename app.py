@@ -130,6 +130,35 @@ def deleteWorkoutSession():
     else:
         return jsonify(status='error', error='Error with deletion, no documents deleted.');
 
+@app.route('/addNewSet', methods=['POST'])
+def addNewSet():
+    username = retrieve_username().lower()
+    userToAddExerciseTo = users.find_one({'username': username})
+    user_id = userToAddExerciseTo['_id']
+
+    workout_id = request.form.get('workoutId')
+    exercise_name = request.form.get('exerciseName')
+    exercise_name = exercise_name.lower()
+    option_one_type = request.form.get('optionOneType')
+    option_one_value = request.form.get('optionOneValue')
+    option_two_type = request.form.get('optionTwoType')
+    option_two_value = request.form.get('optionTwoValue')
+    date_time_performed = request.form.get('dateTimePerformed')
+
+    existing_exercise = exercises.find_one({ '$or' : [ {'name': exercise_name, 'userId':user_id},
+        {'name': exercise_name, 'userId':'PUBLIC'} ] })
+    if existing_exercise is None:
+        exercise_id = exercises.insert({'_id':gen_unique_string_id(), 'userId':user_id,
+            'name':exercise_name, 'optionOneType':option_one_type, 'optionTwoType':option_two_type})
+    else:
+        exercise_id = existing_exercise['_id']
+
+    new_set_id = sets.insert({'_id':gen_unique_string_id(), 'workoutId':workout_id, 'userId':user_id,
+        'exerciseName':exercise_name, 'exerciseId':exercise_id, 'optionOneType':option_one_type, 'optionOneValue':option_one_value,
+        'optionTwoType':option_two_type, 'optionTwoValue':option_two_value, 'dateTimePerformed':date_time_performed})
+
+    return jsonify(status='success', exerciseId=exercise_id, setId=new_set_id)
+
 @app.route('/logout', methods=['POST'])
 def logout():
     if is_logged_in():

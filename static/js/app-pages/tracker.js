@@ -14,7 +14,8 @@ $(document).ready(function() {
 
     $('#submit-set-info-button').on('click', function() {
         // TODO send to database and add to UI
-
+        var workoutIdToAddTo = $(this).parents('#add-set-popup').data('workoutId');
+        Sets.handleNewSetInWorkout(workoutIdToAddTo);
     });
 
     $.ajax({
