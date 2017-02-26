@@ -3,20 +3,48 @@ var Workout = (function() {
     var $workoutContainer = $('#all-workouts-container');
 
     function renderGivenWorkout(config) {
-        var $newWorkoutDiv = $('<div>').addClass('row')
+        var $newWorkoutDiv = $('<div>').addClass('row').addClass('workout-row')
             .load('/static/html/item-structures/workout-item.html', function() {
-                $newWorkoutDiv.find('.workout-date-header').text(config.dateString);
+                initWorkoutContainer($newWorkoutDiv, config.dateString);
+                $newWorkoutDiv.attr('id', 'ws' + config['_id']);
                 $workoutContainer.append($newWorkoutDiv);
+            });
+    }
+
+    function initWorkoutContainer($workoutDiv, date) {
+        $workoutDiv.find('.workout-date-header').text(date);
+        $workoutDiv.find('.remove-workout-button').on('click', function() {
+            $(this).prop('disabled', true);
+            deleteWorkout($(this));
+        });
+    }
+
+    function deleteWorkout($removeWorkoutButton) {
+        var $workoutContainerToRemove = $removeWorkoutButton.parents('.workout-row');
+        var workoutSessionId = $workoutContainerToRemove.attr('id').substring(2);
+        $.ajax({
+                type: 'POST',
+                url: '/deleteWorkoutSession',
+                data: {
+                    'workoutIdToRemove': workoutSessionId
+                }
+            })
+            .done(function(response) {
+                $removeWorkoutButton.prop('disabled', false);
+                if (response['status'] === 'success') {
+                    $workoutContainerToRemove.slideUp(300, function() {
+                        $workoutContainerToRemove.remove();
+                    });
+                }
             });
     }
 
     return {
         createNewWorkout: function() {
             var dateString = GeneralUtil.getMonthDayYear(new Date());
-            var $newWorkoutDiv = $('<div>').addClass('row')
+            var $newWorkoutDiv = $('<div>').addClass('row').addClass('workout-row')
                 .load('/static/html/item-structures/workout-item.html', function() {
-
-                    $newWorkoutDiv.find('.workout-date-header').text(dateString);
+                    initWorkoutContainer($newWorkoutDiv, dateString);
                     $newWorkoutDiv.find('.add-set-button').prop('disabled', true);
                     $newWorkoutDiv.hide();
                     $workoutContainer.prepend($newWorkoutDiv);
@@ -31,6 +59,8 @@ var Workout = (function() {
                             }
                         })
                         .done(function(response) {
+                            var newWorkoutSessionId = JSON.parse(response['newWorkoutSessionId']);
+                            $newWorkoutDiv.attr('id', 'ws' + newWorkoutSessionId);
                             $newWorkoutDiv.find('.add-set-button').prop('disabled', false);
                         });
                 });

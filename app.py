@@ -105,20 +105,30 @@ def addWorkoutSession():
     dateString = request.form.get('dateString')
     dateNumber = request.form.get('dateNumber')
     username = retrieve_username().lower()
-    userToAddTo = users.find_one({'username': username});
+    userToAddTo = users.find_one({'username': username})
     if userToAddTo is not None:
-        newWorkoutSession = workoutSessions.insert({'_id':gen_unique_string_id(),
+        newWorkoutSessionId = workoutSessions.insert({'_id':gen_unique_string_id(),
             'userId':userToAddTo['_id'], 'dateString':dateString, 'dateNumber':dateNumber})
-    return jsonify(status='success', newWorkoutSession=json_util.dumps(newWorkoutSession))
+    return jsonify(status='success', newWorkoutSessionId=json_util.dumps(newWorkoutSessionId))
 
 
 @app.route('/getWorkoutSessions', methods=['POST'])
 def getWorkoutSessions():
     username = retrieve_username().lower()
-    userToAddTo = users.find_one({'username': username});
+    userToAddTo = users.find_one({'username': username})
     resultWorkoutSessions = workoutSessions.find({'userId':userToAddTo['_id']}).sort('dateNumber', -1)
-
     return jsonify(status='success', allWorkoutSessions=json_util.dumps(resultWorkoutSessions));
+
+@app.route('/deleteWorkoutSession', methods=['POST'])
+def deleteWorkoutSession():
+    workoutIdToRemove = request.form.get('workoutIdToRemove')
+    username = retrieve_username().lower()
+    userToRemoveFrom = users.find_one({'username': username})
+    deleteStatus = workoutSessions.delete_one({'_id':workoutIdToRemove})
+    if deleteStatus.deleted_count is not 0:
+        return jsonify(status='success');
+    else:
+        return jsonify(status='error', error='Error with deletion, no documents deleted.');
 
 @app.route('/logout', methods=['POST'])
 def logout():
