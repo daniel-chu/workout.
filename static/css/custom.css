@@ -14,6 +14,7 @@
 
 .bootstrap-select.btn-group .btn {
     padding: 8px 12px 8px 25px;
+    height: 38px;
 }
 
 .bootstrap-select.btn-group .btn .caret {
@@ -242,29 +243,25 @@
 }
 
 @media screen and (min-width: 300px) and (max-width: 450px) {
-    .bootstrap-select.form-control:not([class*=col-]) {
-        width: 92px;
-    }
-    .bootstrap-select.btn-group .btn {
-        padding: 8px 12px 8px 18px;
-    }
-    .bootstrap-select.btn-group .btn .caret {
-        left: 7px;
-    }
     .modal {
         width: 90%;
         margin: auto;
     }
-/*     #option-one-input-container,
-    #option-two-input-container {
-        margin-left: 5px;
-    } */
     #title-container h1 {
         font-size: 29px;
     }
 }
 
 @media screen and (max-width: 767px) {
+    .bootstrap-select.btn-group .btn .caret {
+        left: 7px;
+    }
+    .bootstrap-select.btn-group .btn {
+        padding: 8px 12px 8px 18px;
+    }
+    .bootstrap-select.form-control:not([class*=col-]) {
+        width: 80px;
+    }
     #exercise-name-input {
         margin: auto;
     }
@@ -279,6 +276,7 @@
     #option-two-input-container .col-xs-8 {
         padding: 0;
     }
+    #weight-or-dist-input,
     #reps-or-time-input {
         max-width: 205px;
     }
