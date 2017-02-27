@@ -26,14 +26,19 @@
                     </div>
                 </div>
                 <div id="option-one-input-container" class="form-group">
-                    <label for="weight-or-dist-input" class="col-sm-3 control-label">weight</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-3 col-xs-4">
+                        <select id="weight-or-dist-selector" class="form-control selectpicker show-tick">
+                            <option value="weight">weight</option>
+                            <option value="distance">distance*</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-9 col-xs-8">
                         <input id="weight-or-dist-input" type="number" class="form-control" placeholder="weight">
                     </div>
                 </div>
                 <div id="option-two-input-container" class="form-group">
                     <div class="col-sm-3 col-xs-4">
-                        <select id="reps-or-time-selector" dir="rtl" class="form-control selectpicker show-tick">
+                        <select id="reps-or-time-selector" class="form-control selectpicker show-tick">
                             <option value="reps">reps</option>
                             <option value="time">time*</option>
                         </select>

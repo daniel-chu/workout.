@@ -2,12 +2,13 @@ var Workout = (function() {
 
     var $workoutContainer = $('#all-workouts-container');
 
-    function renderGivenWorkout(config) {
+    function renderGivenWorkout(workoutConfig) {
         var $newWorkoutDiv = $('<div>').addClass('row').addClass('workout-row')
             .load('/static/html/item-structures/workout-item.html', function() {
-                initWorkoutContainer($newWorkoutDiv, config.dateString);
-                $newWorkoutDiv.attr('id', 'ws' + config['_id']);
+                initWorkoutContainer($newWorkoutDiv, workoutConfig.dateString);
+                $newWorkoutDiv.attr('id', 'ws' + workoutConfig['_id']);
                 $workoutContainer.append($newWorkoutDiv);
+                Sets.loadExistingSets(workoutConfig['_id']);
             });
     }
 

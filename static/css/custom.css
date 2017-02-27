@@ -9,7 +9,7 @@
 }
 
 .bootstrap-select.form-control:not([class*=col-]) {
-    width: 80px;
+    width: 100px;
 }
 
 .bootstrap-select.btn-group .btn {
@@ -41,6 +41,14 @@
 #weight-or-dist-input,
 #reps-or-time-input {
     margin: 2px;
+}
+
+.exercise-container {
+    overflow: auto;
+}
+
+.exercise-name-section {
+    padding: 0 5px;
 }
 
 .fading-popup-message {
@@ -132,6 +140,7 @@
     margin-bottom: 10px;
 }
 
+#option-one-input-container .col-sm-3,
 #option-two-input-container .col-sm-3 {
     text-align: right;
     padding: 0 5px 0 15px;
@@ -169,11 +178,30 @@
     padding: 7px;
 }
 
+#weight-or-dist-selector,
 #reps-or-time-selector,
 .bootstrap-select {
     margin: 2px 0;
     color: white;
     background-color: #272b30;
+}
+
+.sets-container {
+    padding: 10px 10px 0px 10px;
+}
+
+.set-info-section {
+    padding: 0;
+}
+
+.set-info-list-item {
+    list-style-type: none;
+}
+
+.set-list {
+    text-align: right;
+    padding: 0 5px 0 0;
+    margin: 0;
 }
 
 #submit-set-info-button,
@@ -198,6 +226,11 @@
     font-size: 40px;
     margin-top: 10px;
     margin-bottom: 8px;
+}
+
+.well {
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
 .workout {

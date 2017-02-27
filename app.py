@@ -17,7 +17,7 @@ exercises = db.exercises
 workoutSessions = db.workoutsessions
 sets = db.sets
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     return render_template('index.html') 
 
@@ -112,7 +112,7 @@ def addWorkoutSession():
     return jsonify(status='success', newWorkoutSessionId=json_util.dumps(newWorkoutSessionId))
 
 
-@app.route('/getWorkoutSessions', methods=['POST'])
+@app.route('/getWorkoutSessions', methods=['GET'])
 def getWorkoutSessions():
     username = retrieve_username().lower()
     userToAddTo = users.find_one({'username': username})
@@ -138,7 +138,7 @@ def addNewSet():
 
     workout_id = request.form.get('workoutId')
     exercise_name = request.form.get('exerciseName')
-    exercise_name = exercise_name.lower()
+    exercise_name = exercise_name.lower().title()
     option_one_type = request.form.get('optionOneType')
     option_one_value = request.form.get('optionOneValue')
     option_two_type = request.form.get('optionTwoType')
@@ -158,6 +158,16 @@ def addNewSet():
         'optionTwoType':option_two_type, 'optionTwoValue':option_two_value, 'dateTimePerformed':date_time_performed})
 
     return jsonify(status='success', exerciseId=exercise_id, setId=new_set_id)
+
+@app.route('/getSets', methods=['GET'])
+def getSets():
+    username = retrieve_username().lower()
+    user = users.find_one({'username': username})
+    user_id = user['_id']
+    workout_id = request.args.get('workoutId')
+
+    setsInWorkout = sets.find({'workoutId':workout_id, 'userId':user_id}).sort('dateTimePerformed', 1)
+    return jsonify(status='success', setsInWorkout=json_util.dumps(setsInWorkout))
 
 @app.route('/logout', methods=['POST'])
 def logout():
