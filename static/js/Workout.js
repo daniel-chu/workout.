@@ -75,6 +75,7 @@ var Workout = (function() {
         renderMultipleWorkoutSessions: function(listOfWorkoutSessions) {
             $('#all-workouts-container').hide()
             for (var i = 0; i < listOfWorkoutSessions.length; i++) {
+                //TODO increase performance of this
                 renderGivenWorkout(listOfWorkoutSessions[i]);
             }
             $('#all-workouts-container').fadeIn(500);
