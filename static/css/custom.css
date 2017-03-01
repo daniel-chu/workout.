@@ -17,6 +17,10 @@ body {
     margin: 5px 0 10px 0;
 }
 
+.bootstrap-select {
+    width: 85% !important;
+}
+
 .bootstrap-select.form-control:not([class*=col-]) {
     width: 100px;
 }
@@ -52,6 +56,12 @@ body {
     position: relative;
 }
 
+.dropdown-menu.open {
+    border: 1px solid black;
+    overflow-x: scroll;
+    max-width: 100%;
+}
+
 .error-text {
     color: #fc6a6a;
 }
@@ -68,6 +78,15 @@ body {
 
 .exercise-name-section {
     padding: 0 5px;
+}
+
+#exercise-input-container .bootstrap-select.btn-group .dropdown-menu li:first-child {
+    display: none;
+}
+
+#exercise-input-container .bootstrap-select.btn-group .btn .filter-option {
+    padding-left: 5px;
+    text-align: left;
 }
 
 .fading-popup-message {
@@ -223,6 +242,11 @@ body {
     margin: 0;
 }
 
+select option:first-child {
+    color: grey;
+    display: none;
+}
+
 #submit-set-info-button,
 #cancel-set-info-button {
     margin-bottom: 5px;
@@ -279,6 +303,9 @@ body {
     }
     .bootstrap-select.form-control:not([class*=col-]) {
         width: 80px;
+    }
+    #exercise-input-container div[class*=col-] {
+        text-align: center;
     }
     #exercise-name-input {
         margin: auto;

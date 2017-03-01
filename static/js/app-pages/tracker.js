@@ -1,9 +1,13 @@
 $(document).ready(function() {
 
+    var $exerciseNameInput = $('#exercise-name-input');
     var $repsOrTimeSelector = $('#reps-or-time-selector');
     var $weightOrDistSelector = $('#weight-or-dist-selector');
+    $exerciseNameInput.selectpicker();
     $repsOrTimeSelector.selectpicker();
     $weightOrDistSelector.selectpicker();
+
+    //TODO IF OPTION IS NOT THERE, CREATE OPTION
 
     $('#add-workout-button').on('click', function() {
         Workout.createNewWorkout();
