@@ -22,120 +22,113 @@
                 <div id="exercise-input-container" class="form-group">
                     <label for="exercise-name-input" class="col-sm-3 control-label">exercise</label>
                     <div class="col-sm-9">
-                        <select id="exercise-name-input" class="select-picker" data-live-search="true">
+                        <select id="exercise-name-input" class="select-picker" data-live-search="true" data-live-search-style="startsWith" data-live-search-placeholder="exercise name">
                             <option value="" selected disabled>exercise name</option>
                             <!--TODO ADD ALL PUBLIC EXERCISES, FIGURE OUT HOW TO SORT ALPHABETICALLY-->
-                            <option data-subtext="chest compound">Dumbbell Bench Press</option>
-                            <option data-subtext="chest compound">Barbell Bench Press</option>
-                            <option data-subtext="chest compound">Dumbbell Incline Bench Press</option>
-                            <option data-subtext="chest compound">Barbell Incline Bench Press</option>
-                            <option data-subtext="chest compound">Dumbbell Decline Bench Press</option>
-                            <option data-subtext="chest compound">Barbell Decline Bench Press</option>
-                            <option data-subtext="chest isolation">Incline Dumbbell Flyes</option>
-                            <option data-subtext="chest isolation">Dumbbell Flyes</option>
-                            <option data-subtext="chest compound">Chest Dips</option>
-                            <option data-subtext="chest isolation">Cable High Chest Flyes</option>
-                            <option data-subtext="chest isolation">Cable Mid Chest Flyes</option>
-                            <option data-subtext="chest isolation">Cable Low Chest Flyes</option>
-                            <option data-subtext="chest compound">Bent-Arm Dumbbell Pullover</option>
-                            <option data-subtext="chest compound">Straight-Arm Dumbbell Pullover</option>
-                            <option data-subtext="chest compound">One Arm Dumbbell Bench Press</option>
-                            <option data-subtext="chest compound">Pushups</option>
-                            <option data-subtext="chest compound">Incline Pushups</option>
-                            <option data-subtext="chest compound">Decline Pushups</option>
-                            <option data-subtext="chest compound">Smith Machine Bench Press</option>
-                            <option data-subtext="chest compound">Smith Machine Incline Bench Press</option>
-                            <option data-subtext="chest compound">Smith Machine Decline Bench Press</option>
-
-                            <option data-subtext="back legs compound"> Barbell Deadlift</option>
-                            <option data-subtext="back legs compound">Barbell Sumo Deadlift</option>
-                            <option data-subtext="back compound">Barbell Bent Over Row</option>
-                            <option data-subtext="back compound">Dumbbell Bent Over Row</option>
-                            <option data-subtext="back compound">Yates Row</option>
-                            <option data-subtext="back compound">Trap Bar Bent Over Row</option>
-                            <option data-subtext="back compound">T-Bar Row</option>
-                            <option data-subtext="back compound">Assisted Pullups</option>
-                            <option data-subtext="back compound">Assisted Neutral Grip Pullups</option>
-                            <option data-subtext="back compound">Assisted Underhand Grip Pullups</option>
-                            <option data-subtext="back compound">Pullups</option>
-                            <option data-subtext="back compound">Neutral Grip Pullups</option>
-                            <option data-subtext="back compound">Underhand Grip Pullups</option>
-                            <option data-subtext="back compound">Muscle Ups</option>
-                            <option data-subtext="back compound">Inverted Pullups</option>
-                            <option data-subtext="back isolation">Cable Straight-Arm Pulldown</option>
-                            <option data-subtext="back isolation">Cable Bent-Arm Back Flyes</option>
-                            <option data-subtext="back isolation">Wide Grip Lat Pulldown</option>
-                            <option data-subtext="back isolation">Close Grip Lat Pulldown</option>
-                            <option data-subtext="back isolation">Leverage Iso Lateral Row</option>
-                            <option data-subtext="back isolation">Leverage Iso High Row</option>
-                            <option data-subtext="back isolation">One Arm Dumbbell Row</option>
-                            <option data-subtext="back isolation">Hyperextensions</option>
-
-                            <option data-subtext="shoulder compound">Dumbbell Shoulder Press</option>
-                            <option data-subtext="shoulder compound">Dumbbell Arnold Press</option>
-                            <option data-subtext="shoulder compound">Kettlebell Shoulder Press</option>
-                            <option data-subtext="shoulder compound">Barbell Shoudler Press</option>
-                            <option data-subtext="shoulder compound">Dumbbell One Arm Shoulder Press</option>
-                            <option data-subtext="shoulder compound">Leverage Machine Shoulder Press</option>
-                            <option data-subtext="shoulder compound">Push Press</option>
-                            <option data-subtext="shoulder isolation">Barbell Upright Row</option>
-                            <option data-subtext="shoulder isolation">Barbell Front Raise</option>
-                            <option data-subtext="shoulder isolation">Dumbbell Front Raise</option>
-                            <option data-subtext="shoulder isolation">Dumbbell Lateral Raise</option>
-                            <option data-subtext="shoulder isolation">Cable Front Raise</option>
-                            <option data-subtext="shoulder isolation">Cable Lateral Raise</option>
-                            <option data-subtext="shoulder isolation">Dumbbell Lying Rear Lateral Raise</option>
-                            <option data-subtext="shoulder isolation">Dumbbell Rear Delt Row</option>
-                            <option data-subtext="shoulder isolation">Face Pull</option>
-                            <option data-subtext="shoulder isolation">Reverse Flyes</option>
-                            <option data-subtext="shoulder traps compound">Dumbbell Shoulder Shrugs</option>
-                            <option data-subtext="shoulder traps compound">Barbell Shoulder Shrugs</option>
-
-                            <option data-subtext="biceps isolation">Dumbbell Curls</option>
-                            <option data-subtext="biceps isolation">Dumbbell Hammer Curls</option>
-                            <option data-subtext="biceps isolation">Dumbbell Supinating Curls</option>
-                            <option data-subtext="biceps isolation">Concentration Curls</option>
-                            <option data-subtext="biceps isolation">Cable Curls</option>
-                            <option data-subtext="biceps isolation">Barbell Curls</option>
-                            <option data-subtext="biceps isolation">Wide-Grip EZ-Bar Curl</option>
-                            <option data-subtext="biceps isolation">Close-Grip EZ-Bar Curl</option>
-                            <option data-subtext="biceps isolation">Reverse Barbell Curl</option>
-                            <option data-subtext="biceps isolation">Overhead Cable Curl</option>
-                            <option data-subtext="biceps isolation">Dumbbell Cross Body Curl</option>
-
-                            <option data-subtext="triceps compound">Smith Machine Close-Grip Bench Press</option>
-                            <option data-subtext="triceps compound">Close-Grip Barbell Bench Press</option>
-                            <option data-subtext="triceps compound">Close-Grip Dumbbell Bench Press</option>
-                            <option data-subtext="triceps compound">Tricep Dips</option>
-                            <option data-subtext="triceps isolation">Barbell Skullcrusher</option>
-                            <option data-subtext="triceps isolation">EZ-Bar Skullcrusher</option>
-                            <option data-subtext="triceps isolation">Dumbbell Triceps Kickbacks</option>
-                            <option data-subtext="triceps isolation">Cable Overhead Triceps Extensions</option>
-                            <option data-subtext="triceps isolation">Cable Rope Tricep Extensions</option>
-                            <option data-subtext="triceps isolation">Seated Triceps Press</option>
-
-                            <option data-subtext="legs compound">Barbell Back Squat</option>
-                            <option data-subtext="legs compound">Barbell Front Squat</option>
-                            <option data-subtext="legs compound">Barbell Lunge</option>
-                            <option data-subtext="legs compound">Barbell Reverse Lunge</option>
-                            <option data-subtext="legs compound">Bodyweight Squat</option>
-                            <option data-subtext="legs compound">Bodyweight Lunge</option>
-                            <option data-subtext="legs compound">Bodyweight Reverse Lunge</option>
-                            <option data-subtext="legs compound">Dumbbell Front Squat</option>
-                            <option data-subtext="legs compound">Dumbbell Lunge</option>
-                            <option data-subtext="legs compound">Romanian Deadlift</option>
-                            <option data-subtext="legs compound">Leg Press</option>
-                            <option data-subtext="legs compound">Hack Squat</option>
-                            <option data-subtext="legs isolation">Leg Extensions</option>
-                            <option data-subtext="legs isolation">Seated Leg Curl</option>
-                            <option data-subtext="legs isolation">Good Morning</option>
-                            <option data-subtext="legs calves isolation">Hack Squat Calf Raises</option>
-                            <option data-subtext="legs calves isolation">Barbell Calf Raises</option>
-                            <option data-subtext="legs calves isolation">Dumbbell Calf Raises</option>
-                            <option data-subtext="legs calves isolation">Leg Press Calf Raises</option>
-                            <option data-subtext="glutes">Barbell Hip Thrust</option>
-                            <option data-subtext="glutes">Barbell Glute Bridge</option>
-                            <option data-subtext="glutes">Glute Kickback</option>
+                            <option>Dumbbell Bench Press</option>
+                            <option>Barbell Bench Press</option>
+                            <option>Dumbbell Incline Bench Press</option>
+                            <option>Barbell Incline Bench Press</option>
+                            <option>Dumbbell Decline Bench Press</option>
+                            <option>Barbell Decline Bench Press</option>
+                            <option>Incline Dumbbell Flyes</option>
+                            <option>Dumbbell Flyes</option>
+                            <option>Chest Dips</option>
+                            <option>Cable High Chest Flyes</option>
+                            <option>Cable Mid Chest Flyes</option>
+                            <option>Cable Low Chest Flyes</option>
+                            <option>Bent-Arm Dumbbell Pullover</option>
+                            <option>Straight-Arm Dumbbell Pullover</option>
+                            <option>One Arm Dumbbell Bench Press</option>
+                            <option>Pushups</option>
+                            <option>Smith Machine Bench Press</option>
+                            <option>Smith Machine Incline Bench Press</option>
+                            <option>Smith Machine Decline Bench Press</option>
+                            <option>Barbell Deadlift</option>
+                            <option>Barbell Bent Over Row</option>
+                            <option>T-Bar Row</option>
+                            <option>Pullups</option>
+                            <option>Neutral Grip Pullups</option>
+                            <option>Underhand Grip Pullups</option>
+                            <option>Cable Straight-Arm Pulldown</option>
+                            <option>Cable Bent-Arm Back Flyes</option>
+                            <option>Wide Grip Lat Pulldown</option>
+                            <option>Close Grip Lat Pulldown</option>
+                            <option>Leverage Iso Lateral Row</option>
+                            <option>Leverage Iso High Row</option>
+                            <option>One Arm Dumbbell Row</option>
+                            <option>Hyperextensions</option>
+                            <option>Dumbbell Shoulder Press</option>
+                            <option>Dumbbell Arnold Press</option>
+                            <option>Barbell Shoulder Press</option>
+                            <option>Barbell Upright Row</option>
+                            <option>Barbell Front Raise</option>
+                            <option>Dumbbell Front Raise</option>
+                            <option>Dumbbell Lateral Raise</option>
+                            <option>Cable Front Raise</option>
+                            <option>Cable Lateral Raise</option>
+                            <option>Dumbbell Lying Rear Lateral Raise</option>
+                            <option>Face Pull</option>
+                            <option>Reverse Flyes</option>
+                            <option>Dumbbell Shoulder Shrugs</option>
+                            <option>Barbell Shoulder Shrugs</option>
+                            <option>Dumbbell Curls</option>
+                            <option>Dumbbell Hammer Curls</option>
+                            <option>Dumbbell Supinating Curls</option>
+                            <option>Concentration Curls</option>
+                            <option>Cable Curls</option>
+                            <option>Barbell Curls</option>
+                            <option>Wide-Grip EZ-Bar Curl</option>
+                            <option>Close-Grip EZ-Bar Curl</option>
+                            <option>Overhead Cable Curl</option>
+                            <option>Close-Grip Bench Press</option>
+                            <option>Tricep Dips</option>
+                            <option>Dumbbell Overhead Tricep Extension</option>
+                            <option>Barbell Skullcrusher</option>
+                            <option>EZ-Bar Skullcrusher</option>
+                            <option>Dumbbell Triceps Kickback</option>
+                            <option>Cable Triceps Kickback</option>
+                            <option>Cable Overhead Triceps Extensions</option>
+                            <option>Cable Rope Tricep Extensions</option>
+                            <option>Seated Triceps Press</option>
+                            <option>Barbell Back Squat</option>
+                            <option>Barbell Front Squat</option>
+                            <option>Barbell Lunge</option>
+                            <option>Barbell Reverse Lunge</option>
+                            <option>Bodyweight Squat</option>
+                            <option>Bodyweight Lunge</option>
+                            <option>Bodyweight Reverse Lunge</option>
+                            <option>Dumbbell Lunge</option>
+                            <option>Romanian Deadlift</option>
+                            <option>Sumo Deadlift</option>
+                            <option>Leg Press</option>
+                            <option>Hack Squat</option>
+                            <option>Leg Extensions</option>
+                            <option>Seated Leg Curl</option>
+                            <option>Good Morning</option>
+                            <option>Hack Squat Calf Raises</option>
+                            <option>Barbell Calf Raises</option>
+                            <option>Dumbbell Calf Raises</option>
+                            <option>Leg Press Calf Raises</option>
+                            <option>Barbell Hip Thrust</option>
+                            <option>Barbell Glute Bridge</option>
+                            <option>Glute Kickback</option>
+                            <option>Planks</option>
+                            <option>Hanging Leg Raise</option>
+                            <option>Hanging Knee Raise</option>
+                            <option>Cable Pallof Press</option>
+                            <option>Cable Woodchoppers</option>
+                            <option>Serratus Dip</option>
+                            <option>Cable Pallof Press</option>
+                            <option>Cable Woodchoppers</option>
+                            <option>Crunches</option>
+                            <option>Weighted Crunches</option>
+                            <option>Russian Twist</option>
+                            <option>Power Clean</option>
+                            <option>Hang Clean</option>
+                            <option>Clean and Jerk</option>
+                            <option>Snatch</option>
+                            <option>Push Press</option>
                         </select>
                     </div>
                 </div>
