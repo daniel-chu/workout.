@@ -19,9 +19,18 @@ var Workout = (function() {
             deleteWorkout($(this));
         });
         $workoutDiv.find('.add-set-button').on('click', function() {
+            Workout.exitRemoveSetMode($workoutDiv);
             var workoutIdToStore = $(this).parents('.workout-row').attr('id').substring(2);
             $('#add-set-popup').data('workoutId', workoutIdToStore);
         });
+        $workoutDiv.find('.edit-workout-button').on('click', function() {
+            $(this).toggleClass('active');
+            if ($(this).hasClass('active')) {
+                Workout.enterRemoveSetMode($workoutDiv);
+            } else {
+                Workout.exitRemoveSetMode($workoutDiv);
+            }
+        })
     }
 
     function deleteWorkout($removeWorkoutButton) {
@@ -46,6 +55,14 @@ var Workout = (function() {
     }
 
     return {
+        enterRemoveSetMode: function($workoutDiv) {
+            $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'show' }, 250)
+                .css('overflow', 'visible');
+        },
+        exitRemoveSetMode: function($workoutDiv) {
+            $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'hide' }, 250)
+                .css('overflow', 'visible');
+        },
         createNewWorkout: function() {
             var dateString = GeneralUtil.getMonthDayYear(new Date());
             var $newWorkoutDiv = $('<div>').addClass('row').addClass('workout-row')

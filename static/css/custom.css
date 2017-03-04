@@ -17,8 +17,8 @@ body {
     margin: 5px 0 10px 0;
 }
 
-#exercise-input-container .bootstrap-select {
-    width: 85% !important;
+.btn:focus {
+    outline: none !important;
 }
 
 .bootstrap-select.form-control:not([class*=col-]) {
@@ -41,10 +41,11 @@ body {
 .close {
     color: #ffffff;
     text-shadow: 0 1px 0 #000000;
+    outline: none !important;
 }
 
 .close span {
-    padding-right: 4px;
+    padding: 0 4px;
 }
 
 .container-fluid>.navbar-collapse {
@@ -78,6 +79,10 @@ body {
 
 .exercise-name-section {
     padding: 0 5px;
+}
+
+#exercise-input-container .bootstrap-select {
+    width: 85% !important;
 }
 
 #exercise-input-container .bootstrap-select.btn-group .dropdown-menu li:first-child {
@@ -211,7 +216,13 @@ body {
     width: 35%;
 }
 
-.remove-workout-button {
+.remove-set-button {
+    margin: 0 0 0 4px;
+    height: 10px;
+}
+
+.remove-workout-button,
+.edit-workout-button {
     margin: 0 3px;
     padding: 7px;
 }

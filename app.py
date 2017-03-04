@@ -169,6 +169,15 @@ def getSets():
     setsInWorkout = sets.find({'workoutId':workout_id, 'userId':user_id}).sort('dateTimePerformed', 1)
     return jsonify(status='success', setsInWorkout=json_util.dumps(setsInWorkout))
 
+@app.route('/removeSet', methods=['POST'])
+def removeSet():
+    username = retrieve_username().lower()
+    user = users.find_one({'username': username})
+    user_id = user['_id']
+    set_id = request.form.get('setId')
+    sets.delete_one({'_id':set_id, 'userId':user_id})
+    return jsonify(status='success')
+
 @app.route('/logout', methods=['POST'])
 def logout():
     if is_logged_in():

@@ -1,27 +1,67 @@
 var Sets = (function() {
 
-    function createNewExerciseSection(workoutId, exerciseDivFullId, exerciseName, optionOneType,
+    function createNewExerciseSection(setId, workoutId, exerciseDivFullId, exerciseName, optionOneType,
         optionOneValue, optionTwoType, optionTwoValue, callback) {
         callback = callback || function() { /*empty function*/ };
-        var $newExerciseDiv = $('<div>').addClass('well').attr('id', exerciseDivFullId)
+        var $newExerciseDiv = $('<div>').addClass('well').addClass('exerciseDiv').attr('id', exerciseDivFullId)
             .load('/static/html/item-structures/exercise-in-set-item.html', function() {
                 initExerciseContainer($newExerciseDiv);
                 $newExerciseDiv.find('.exercise-name-section').text(exerciseName);
                 var $newSet = createSetListItem(optionOneType, optionOneValue, optionTwoType, optionTwoValue);
+                var newSetFullId = exerciseDivFullId + "_st" + setId;
+                $newSet.attr('id', newSetFullId);
+                initSet($newSet);
                 $newExerciseDiv.find('.set-info-section .set-list').append($newSet);
                 (callback)();
             });
         $('#ws' + workoutId).find('.sets-container').append($newExerciseDiv);
     }
 
-    function addToExistingExerciseSection($exerciseToAddTo, optionOneType,
+    function addToExistingExerciseSection(setId, $exerciseToAddTo, optionOneType,
         optionOneValue, optionTwoType, optionTwoValue) {
         var $newSet = createSetListItem(optionOneType, optionOneValue, optionTwoType, optionTwoValue);
+        var newSetFullId = $exerciseToAddTo.attr('id') + "_st" + setId;
+        $newSet.attr('id', newSetFullId);
+        initSet($newSet);
         $exerciseToAddTo.find('.set-info-section .set-list').append($newSet);
     }
 
     function initExerciseContainer($exerciseDiv) {
         //TODO add anything that needs to be initialized for each exercise
+    }
+
+    function initSet($set) {
+        $set.find('.remove-set-button').on('click', function() {
+            removeSet($set);
+        });
+    }
+
+    function removeSet($set) {
+        var setFullId = $set.attr('id');
+        var setToRemoveId = setFullId.substring(setFullId.indexOf("_st") + 3);
+        $.ajax({
+            type: 'POST',
+            url: '/removeSet',
+            data: {
+                setId: setToRemoveId
+            }
+        });
+        $set.fadeOut(300);
+        $set.slideUp(300, function() {
+            $set.remove();
+        });
+        if ($set.siblings().length === 0) {
+            var $parentExerciseDiv = $set.parents('.exerciseDiv');
+            removeExerciseDiv($parentExerciseDiv);
+        }
+
+    }
+
+    function removeExerciseDiv($exerciseDiv) {
+        $exerciseDiv.fadeOut(300);
+        $exerciseDiv.slideUp(300, function() {
+            $exerciseDiv.remove();
+        })
     }
 
     function createSetListItem(optionOneType, optionOneValue, optionTwoType, optionTwoValue) {
@@ -53,12 +93,14 @@ var Sets = (function() {
         }
         var dataString = optionOneValue + " " + optionOneUnits + " " + connectorWord + " " + optionTwoValue + " " + optionTwoUnits;
         $newSet.text(dataString);
+        $newSet.append('<button type="button" class="close remove-set-button" style="display:none"><span>&times;</span></button>');
         return $newSet;
     }
 
     function renderAllSets(listOfSetConfigs, curIndex) {
         if (curIndex < listOfSetConfigs.length) {
             var setConfig = listOfSetConfigs[curIndex];
+            var setId = setConfig['_id'];
             var workoutId = setConfig['workoutId'];
             var exerciseId = setConfig['exerciseId'];
             var exerciseName = setConfig['exerciseName'];
@@ -70,13 +112,13 @@ var Sets = (function() {
             var exerciseDivFullId = "ws" + workoutId + "_ex" + exerciseId;
             var $exerciseInWorkoutToAddTo = $('#' + exerciseDivFullId);
             if ($exerciseInWorkoutToAddTo.length == 0) {
-                createNewExerciseSection(workoutId, exerciseDivFullId, exerciseName, optionOneType,
+                createNewExerciseSection(setId, workoutId, exerciseDivFullId, exerciseName, optionOneType,
                     optionOneValue, optionTwoType, optionTwoValue,
                     function() {
                         renderAllSets(listOfSetConfigs, curIndex + 1);
                     });
             } else {
-                addToExistingExerciseSection($exerciseInWorkoutToAddTo, optionOneType, optionOneValue,
+                addToExistingExerciseSection(setId, $exerciseInWorkoutToAddTo, optionOneType, optionOneValue,
                     optionTwoType, optionTwoValue);
                 renderAllSets(listOfSetConfigs, curIndex + 1);
             }
@@ -106,14 +148,15 @@ var Sets = (function() {
                     }
                 })
                 .done(function(response) {
+                    var setId = response['setId'];
                     var exerciseId = response['exerciseId'];
                     var exerciseDivFullId = 'ws' + workoutId + '_ex' + exerciseId;
                     var $exerciseInWorkoutToAddTo = $('#' + exerciseDivFullId);
                     if ($exerciseInWorkoutToAddTo.length == 0) {
-                        createNewExerciseSection(workoutId, exerciseDivFullId, exerciseName, optionOneType, optionOneValue,
+                        createNewExerciseSection(setId, workoutId, exerciseDivFullId, exerciseName, optionOneType, optionOneValue,
                             optionTwoType, optionTwoValue);
                     } else {
-                        addToExistingExerciseSection($exerciseInWorkoutToAddTo, optionOneType, optionOneValue,
+                        addToExistingExerciseSection(setId, $exerciseInWorkoutToAddTo, optionOneType, optionOneValue,
                             optionTwoType, optionTwoValue);
                     }
                 });
