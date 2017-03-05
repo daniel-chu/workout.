@@ -11,6 +11,29 @@
     <div id="all-workouts-container">
     </div>
 </div>
+<div id="confirm-delete-modal" class="modal fade form-horizontal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h3>confirm delete</h3>
+            </div>
+            <div class="modal-body">
+                <p>This workout session still has sets in it. Are you sure you want to delete it?</p>
+            </div>
+            <div class="modal-footer">
+                <div class='col-sm-3'></div>
+                <div class='col-sm-6'>
+                    <button id="confirm-delete-button" type="button" class="btn btn-sm btn-danger">delete</button>
+                    <button id="cancel-delete-button" type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                        cancel
+                    </button>
+                </div>
+                <div class='col-sm-3'></div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="add-set-popup" class="modal fade form-horizontal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

@@ -48,6 +48,14 @@ body {
     padding: 0 4px;
 }
 
+#confirm-delete-modal * {
+    max-width: 350px;
+}
+
+#confirm-delete-modal p {
+    padding: 0 20px;
+}
+
 .container-fluid>.navbar-collapse {
     margin-right: -15px;
     margin-left: -15px;

@@ -16,7 +16,7 @@ var Workout = (function() {
         $workoutDiv.find('.workout-date-header').text(date);
         $workoutDiv.find('.remove-workout-button').on('click', function() {
             $(this).prop('disabled', true);
-            deleteWorkout($(this).parents('.workout-row'));
+            confirmDelete($(this).parents('.workout-row'));
         });
         $workoutDiv.find('.add-set-button').on('click', function() {
             Workout.exitRemoveSetMode($workoutDiv);
@@ -33,8 +33,24 @@ var Workout = (function() {
         })
     }
 
+    function confirmDelete($workoutContainerToRemove) {
+        if ($workoutContainerToRemove.find('.set-list').length === 0) {
+            deleteWorkout($workoutContainerToRemove);
+        } else {
+            console.log($('#confirm-delete-modal'))
+            $('#confirm-delete-button').off('click');
+            $('#confirm-delete-button').on('click', function() {
+                deleteWorkout($workoutContainerToRemove);
+                $('#confirm-delete-modal').modal('hide');
+            });
+            $('#confirm-delete-modal').on('hide.bs.modal', function() {
+                $workoutContainerToRemove.find('.remove-workout-button').prop('disabled', false);
+            })
+            $('#confirm-delete-modal').modal('show');
+        }
+    }
+
     function deleteWorkout($workoutContainerToRemove) {
-        // TODO ADD CONFIRMATION POPUP
         var workoutSessionId = $workoutContainerToRemove.attr('id').substring(2);
         $.ajax({
                 type: 'POST',
