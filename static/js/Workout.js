@@ -16,7 +16,7 @@ var Workout = (function() {
         $workoutDiv.find('.workout-date-header').text(date);
         $workoutDiv.find('.remove-workout-button').on('click', function() {
             $(this).prop('disabled', true);
-            deleteWorkout($(this));
+            deleteWorkout($(this).parents('.workout-row'));
         });
         $workoutDiv.find('.add-set-button').on('click', function() {
             Workout.exitRemoveSetMode($workoutDiv);
@@ -33,9 +33,8 @@ var Workout = (function() {
         })
     }
 
-    function deleteWorkout($removeWorkoutButton) {
+    function deleteWorkout($workoutContainerToRemove) {
         // TODO ADD CONFIRMATION POPUP
-        var $workoutContainerToRemove = $removeWorkoutButton.parents('.workout-row');
         var workoutSessionId = $workoutContainerToRemove.attr('id').substring(2);
         $.ajax({
                 type: 'POST',
@@ -45,9 +44,9 @@ var Workout = (function() {
                 }
             })
             .done(function(response) {
-                $removeWorkoutButton.prop('disabled', false);
+                $workoutContainerToRemove.find('.remove-workout-button').prop('disabled', false);
                 if (response['status'] === 'success') {
-                    $workoutContainerToRemove.slideUp(300, function() {
+                    $workoutContainerToRemove.animate({ opacity: 'toggle', height: 'toggle' }, 300, function() {
                         $workoutContainerToRemove.remove();
                     });
                 }
@@ -60,6 +59,7 @@ var Workout = (function() {
                 .css('overflow', 'visible');
         },
         exitRemoveSetMode: function($workoutDiv) {
+            $workoutDiv.find('.edit-workout-button').removeClass('active');
             $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'hide' }, 250)
                 .css('overflow', 'visible');
         },
@@ -71,8 +71,8 @@ var Workout = (function() {
                     $newWorkoutDiv.find('.add-set-button').prop('disabled', true);
                     $newWorkoutDiv.hide();
                     $workoutContainer.prepend($newWorkoutDiv);
-                    $newWorkoutDiv.slideDown(200);
 
+                    $newWorkoutDiv.animate({ opacity: 'toggle', height: 'toggle' }, 300);
                     $.ajax({
                             type: 'POST',
                             url: '/addWorkoutSession',

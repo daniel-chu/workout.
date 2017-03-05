@@ -46,8 +46,7 @@ var Sets = (function() {
                 setId: setToRemoveId
             }
         });
-        $set.fadeOut(300);
-        $set.slideUp(300, function() {
+        $set.animate({ opacity: 'toggle', height: 'toggle' }, 300, function() {
             $set.remove();
         });
         if ($set.siblings().length === 0) {
@@ -58,10 +57,9 @@ var Sets = (function() {
     }
 
     function removeExerciseDiv($exerciseDiv) {
-        $exerciseDiv.fadeOut(300);
-        $exerciseDiv.slideUp(300, function() {
+        $exerciseDiv.animate({ opacity: 'toggle', height: 'toggle' }, 300, function() {
             $exerciseDiv.remove();
-        })
+        });
     }
 
     function createSetListItem(optionOneType, optionOneValue, optionTwoType, optionTwoValue) {
