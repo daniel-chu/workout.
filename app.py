@@ -159,10 +159,34 @@ def addNewSet():
         exercise_id = existing_exercise['_id']
 
     new_set_id = sets.insert({'_id':gen_unique_string_id(), 'workoutId':workout_id, 'userId':user_id,
-        'exerciseName':exercise_name, 'exerciseId':exercise_id, 'optionOneType':option_one_type, 'optionOneValue':option_one_value,
-        'optionTwoType':option_two_type, 'optionTwoValue':option_two_value, 'dateTimePerformed':date_time_performed})
+        'exerciseName':exercise_name, 'exerciseId':exercise_id, 'optionOneType':option_one_type,
+        'optionOneValue':option_one_value, 'optionTwoType':option_two_type, 'optionTwoValue':option_two_value,
+        'dateTimePerformed':date_time_performed})
 
     return jsonify(status='success', exerciseId=exercise_id, setId=new_set_id)
+
+# TODO add exercises to selectpicker from database
+
+@app.route('/retrieveExerciseOptions', methods=['GET'])
+def retrieveExerciseOptions():
+    username = retrieve_username().lower()
+    user = users.find_one({'username': username})
+    user_id = user['_id']
+    exercise_name = request.args.get('exerciseName')
+
+    # finds user version first
+    selectedExercise = exercises.find_one({ 'name': exercise_name, 'userId':user_id })
+
+    # if there is no user version, it will try to find the public version
+    if selectedExercise is None:
+        selectedExercise = exercises.find_one({ 'name': exercise_name, 'userId':'PUBLIC' })
+        # nothing found (this case should never happen without the user directly making AJAX calls through console)
+        if selectedExercise is None:
+            return jsonify(status='error', error='No exercise with this name found')
+
+    return jsonify(status='success', optionOneType=selectedExercise['optionOneType'],
+        optionTwoType=selectedExercise['optionTwoType'])
+
 
 @app.route('/getSets', methods=['GET'])
 def getSets():

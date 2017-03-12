@@ -38,6 +38,28 @@ $(document).ready(function() {
         }
     });
 
+    function changeOptionsForExercise(exerciseName) {
+        $.ajax({
+                type: 'GET',
+                url: '/retrieveExerciseOptions',
+                data: {
+                    'exerciseName': exerciseName
+                }
+            })
+            .done(function(response) {
+                if (response['status'] === 'success') {
+                    var optionOneToChangeTo = response['optionOneType'];
+                    var optionTwoToChangeTo = response['optionTwoType'];
+                    //TODO do this
+                    console.log("CHANGE OPTIONS TO " + optionOneToChangeTo + " AND " + optionTwoToChangeTo);
+                }
+            })
+    }
+
+    $('#exercise-name-input').on('change', function() {
+        changeOptionsForExercise($('#exercise-name-input').val(), "weight", "reps");
+    });
+
     $('#add-workout-button').on('click', function() {
         Workout.createNewWorkout();
     });
