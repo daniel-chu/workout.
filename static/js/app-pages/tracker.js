@@ -15,13 +15,13 @@ $(document).ready(function() {
         }
         if ($('.no-results').length > 0) {
             $('.no-results').remove();
-            var $dropdownMenu = $('.dropdown-menu.inner');
+            var $exerciseDropdownMenu = $('#exercise-input-container .dropdown-menu.inner');
             var $createExerciseListItem = $('<li>').attr('id', 'create-exercise-option').addClass('active');
             var $innerLink = $('<a>');
             var $optionText = $('<span>').addClass('text').text('"' + $('.bs-searchbox>input').val() + '" will be created*');
             $innerLink.append($optionText);
             $createExerciseListItem.append($innerLink);
-            $dropdownMenu.append($createExerciseListItem);
+            $exerciseDropdownMenu.append($createExerciseListItem);
 
             $('#create-exercise-option').on('click', function() {
                 var newExerciseName = $('.bs-searchbox>input').val();
@@ -48,10 +48,20 @@ $(document).ready(function() {
             })
             .done(function(response) {
                 if (response['status'] === 'success') {
+                    var oldOptionOne = $weightOrDistSelector.val();
+                    var oldOptionTwo = $repsOrTimeSelector.val();
+
                     var optionOneToChangeTo = response['optionOneType'];
                     var optionTwoToChangeTo = response['optionTwoType'];
                     $weightOrDistSelector.selectpicker('val', optionOneToChangeTo);
                     $repsOrTimeSelector.selectpicker('val', optionTwoToChangeTo);
+
+                    if ($weightOrDistSelector.val() !== oldOptionOne) {
+                        $weightOrDistSelector.trigger('change');
+                    }
+                    if ($repsOrTimeSelector.val() !== oldOptionTwo) {
+                        $repsOrTimeSelector.trigger('change');
+                    }
                 }
             })
     }
@@ -71,16 +81,8 @@ $(document).ready(function() {
         Workout.createNewWorkout();
     });
 
-    $repsOrTimeSelector.on('change', function() {
-        var value = $repsOrTimeSelector.find(":selected").text();
-        $('#reps-or-time-input').attr('placeholder', value);
-    });
-
-    $repsOrTimeSelector.on('change', function() {
-        $('#reps-or-time-input').val('');
-    });
-
     $weightOrDistSelector.on('change', function() {
+        $('#weight-or-dist-input').val('');
         var value = $weightOrDistSelector.find(':selected').text();
         $('#weight-or-dist-input').attr('placeholder', value);
         if (window.matchMedia('(max-width: 767px)').matches) {
@@ -93,8 +95,10 @@ $(document).ready(function() {
         }
     });
 
-    $weightOrDistSelector.on('change', function() {
-        $('#weight-or-dist-input').val('');
+    $repsOrTimeSelector.on('change', function() {
+        $('#reps-or-time-input').val('');
+        var value = $repsOrTimeSelector.find(":selected").text();
+        $('#reps-or-time-input').attr('placeholder', value);
     });
 
     $('#submit-set-info-button').on('click', submitNewSet);
