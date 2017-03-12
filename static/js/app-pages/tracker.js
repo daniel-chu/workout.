@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
     var $exerciseNameInput = $('#exercise-name-input');
-    var $repsOrTimeSelector = $('#reps-or-time-selector');
     var $weightOrDistSelector = $('#weight-or-dist-selector');
+    var $repsOrTimeSelector = $('#reps-or-time-selector');
     $exerciseNameInput.selectpicker();
     $repsOrTimeSelector.selectpicker();
     $weightOrDistSelector.selectpicker();
@@ -50,8 +50,11 @@ $(document).ready(function() {
                 if (response['status'] === 'success') {
                     var optionOneToChangeTo = response['optionOneType'];
                     var optionTwoToChangeTo = response['optionTwoType'];
-                    //TODO do this
-                    console.log("CHANGE OPTIONS TO " + optionOneToChangeTo + " AND " + optionTwoToChangeTo);
+                    $weightOrDistSelector.find('option').prop('selected', false);
+                    $weightOrDistSelector.find('option[value="' + optionOneToChangeTo + '"]').prop('selected', true);
+                    $repsOrTimeSelector.find('option').prop('selected', false);
+                    $repsOrTimeSelector.find('option[value="' + optionTwoToChangeTo + '"]').prop('selected', true);
+                    $('.selectpicker').selectpicker('refresh');
                 }
             })
     }
