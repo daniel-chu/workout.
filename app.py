@@ -150,8 +150,8 @@ def addNewSet():
     option_two_value = request.form.get('optionTwoValue')
     date_time_performed = request.form.get('dateTimePerformed')
 
-    existing_exercise = exercises.find_one({ '$or' : [ {'name': exercise_name, 'userId':user_id},
-        {'name': exercise_name, 'userId':'PUBLIC'} ] })
+    existing_exercise = exercises.find_one({ '$or' : [ {'name': exercise_name, 'userId':user_id, 'optionOneType':option_one_type, 'optionTwoType':option_two_type},
+        {'name': exercise_name, 'userId':'PUBLIC', 'optionOneType':option_one_type, 'optionTwoType':option_two_type} ] })
     if existing_exercise is None:
         exercise_id = exercises.insert({'_id':gen_unique_string_id(), 'userId':user_id,
             'name':exercise_name, 'optionOneType':option_one_type, 'optionTwoType':option_two_type})
