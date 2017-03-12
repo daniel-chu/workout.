@@ -7,9 +7,7 @@ $(document).ready(function() {
     $repsOrTimeSelector.selectpicker();
     $weightOrDistSelector.selectpicker();
 
-    // TODO add set fields should allow pressing enter -> submit
     // TODO fix css for zoom in breaking modal -> .modal.fade.in { top: auto } issue
-    // TODO on page load, add user added exercises (from that specific user) to their dropdown menu
 
     function handleCreateNew() {
         if ($('#create-exercise-option').length > 0) {
@@ -18,15 +16,18 @@ $(document).ready(function() {
         if ($('.no-results').length > 0) {
             $('.no-results').remove();
             var $dropdownMenu = $('.dropdown-menu.inner');
-            var $createExerciseListItem = $('<li>').attr('id', 'create-exercise-option');
+            var $createExerciseListItem = $('<li>').attr('id', 'create-exercise-option').addClass('active');
             var $innerLink = $('<a>');
             var $optionText = $('<span>').addClass('text').text('"' + $('.bs-searchbox>input').val() + '" will be created*');
             $innerLink.append($optionText);
             $createExerciseListItem.append($innerLink);
             $dropdownMenu.append($createExerciseListItem);
 
-            $createExerciseListItem.on('click', function() {
-                //TODO actually add option and allow them to select it
+            $('#create-exercise-option').on('click', function() {
+                var newExerciseName = $('.bs-searchbox>input').val();
+                $exerciseNameInput.append($('<option>').text(newExerciseName));
+                $exerciseNameInput.selectpicker('refresh');
+                $exerciseNameInput.selectpicker('val', newExerciseName);
             });
         }
     }
@@ -50,11 +51,8 @@ $(document).ready(function() {
                 if (response['status'] === 'success') {
                     var optionOneToChangeTo = response['optionOneType'];
                     var optionTwoToChangeTo = response['optionTwoType'];
-                    $weightOrDistSelector.find('option').prop('selected', false);
-                    $weightOrDistSelector.find('option[value="' + optionOneToChangeTo + '"]').prop('selected', true);
-                    $repsOrTimeSelector.find('option').prop('selected', false);
-                    $repsOrTimeSelector.find('option[value="' + optionTwoToChangeTo + '"]').prop('selected', true);
-                    $('.selectpicker').selectpicker('refresh');
+                    $weightOrDistSelector.selectpicker('val', optionOneToChangeTo);
+                    $repsOrTimeSelector.selectpicker('val', optionTwoToChangeTo);
                 }
             })
     }
@@ -109,6 +107,20 @@ $(document).ready(function() {
             if (response['status'] === 'success') {
                 var allWorkoutSessions = JSON.parse(response['allWorkoutSessions']);
                 Workout.renderMultipleWorkoutSessions(allWorkoutSessions);
+            }
+        });
+
+    $.ajax({
+            type: 'GET',
+            url: '/getUsersExercises'
+        })
+        .done(function(response) {
+            if (response['status'] === 'success') {
+                var allUserExercises = JSON.parse(response['allUserExercises']);
+                for (var i = 0; i < allUserExercises.length; i++) {
+                    $exerciseNameInput.append($('<option>').text(allUserExercises[i]['name']));
+                }
+                $exerciseNameInput.selectpicker('refresh');
             }
         });
 });
