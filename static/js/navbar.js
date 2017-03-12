@@ -9,10 +9,10 @@ $(document).ready(function() {
                 if ($('#collapsible-navigationbar').hasClass('collapse in')) {
                     $('.navbar-toggle').click();
                     window.setTimeout(function() {
-                        window.location.hash = "#login"
+                        window.location.hash = '#login'
                     }, 300);
                 } else {
-                    window.location.hash = "#login"
+                    window.location.hash = '#login'
                 }
             });
     });

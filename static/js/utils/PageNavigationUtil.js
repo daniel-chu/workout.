@@ -68,7 +68,7 @@ var PageNavigationUtil = (function() {
                     } else {
                         pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = true;
                         PageNavigationUtil.goToMainTrackerPage(function() {
-                            GeneralUtil.displayFadeWarning("You are already logged in.");
+                            GeneralUtil.displayFadeWarning('You are already logged in.');
                         });
                     }
                 } else {
@@ -77,7 +77,7 @@ var PageNavigationUtil = (function() {
                     } else {
                         pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = true;
                         PageNavigationUtil.goToLoginPage(function() {
-                            GeneralUtil.displayFadeWarning("Please log in.");
+                            GeneralUtil.displayFadeWarning('Please log in.');
                         });
                     }
                 }
@@ -88,7 +88,7 @@ var PageNavigationUtil = (function() {
         goToLoginPage: function(callback) {
             goToPageIfLoggedIn(false, function() {
                 callback = callback || function() { /*empty function*/ };
-                window.location.hash = "#login";
+                window.location.hash = '#login';
                 renderPageFrom('login', '/static/html/login.html', callback);
                 removeNavBarItems();
             });
@@ -97,7 +97,7 @@ var PageNavigationUtil = (function() {
         goToRegistrationPage: function(callback) {
             goToPageIfLoggedIn(false, function() {
                 callback = callback || function() { /*empty function*/ };
-                window.location.hash = "#register";
+                window.location.hash = '#register';
                 renderPageFrom('register', '/static/html/register.html', callback)
                 removeNavBarItems();
             });
@@ -106,7 +106,7 @@ var PageNavigationUtil = (function() {
         goToMainTrackerPage: function(callback) {
             goToPageIfLoggedIn(true, function() {
                 callback = callback || function() { /*empty function*/ };
-                window.location.hash = "#tracker";
+                window.location.hash = '#tracker';
                 renderPageFrom('tracker', '/static/html/tracker.html', callback);
                 loadNavBarItems();
             });
@@ -115,7 +115,7 @@ var PageNavigationUtil = (function() {
         goToExercisesPage: function(callback) {
             goToPageIfLoggedIn(true, function() {
                 callback = callback || function() { /*empty function*/ };
-                window.location.hash = "#exercises";
+                window.location.hash = '#exercises';
                 renderPageFrom('exercises', '/static/html/exercises.html', callback);
                 loadNavBarItems();
             });
@@ -124,7 +124,7 @@ var PageNavigationUtil = (function() {
         goToStatsPage: function(callback) {
             goToPageIfLoggedIn(true, function() {
                 callback = callback || function() { /*empty function*/ };
-                window.location.hash = "#stats";
+                window.location.hash = '#stats';
                 renderPageFrom('stats', '/static/html/stats.html', callback);
                 loadNavBarItems();
             });
@@ -133,7 +133,7 @@ var PageNavigationUtil = (function() {
         goToOwnProfilePage: function(callback) {
             goToPageIfLoggedIn(true, function() {
                 callback = callback || function() { /*empty function*/ };
-                window.location.hash = "#profile";
+                window.location.hash = '#profile';
                 renderPageFrom('profile', '/static/html/profile.html', callback);
                 loadNavBarItems();
             });
@@ -142,7 +142,7 @@ var PageNavigationUtil = (function() {
         goToSettingsPage: function(callback) {
             goToPageIfLoggedIn(true, function() {
                 callback = callback || function() { /*empty function*/ };
-                window.location.hash = "#settings";
+                window.location.hash = '#settings';
                 renderPageFrom('settings', '/static/html/settings.html', callback);
                 loadNavBarItems();
             });

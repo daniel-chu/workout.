@@ -8,7 +8,7 @@ var Sets = (function() {
                 initExerciseContainer($newExerciseDiv);
                 $newExerciseDiv.find('.exercise-name-section').text(exerciseName);
                 var $newSet = createSetListItem(optionOneType, optionOneValue, optionTwoType, optionTwoValue);
-                var newSetFullId = exerciseDivFullId + "_st" + setId;
+                var newSetFullId = exerciseDivFullId + '_st' + setId;
                 $newSet.attr('id', newSetFullId);
                 initSet($newSet);
                 $newExerciseDiv.find('.set-info-section .set-list').append($newSet);
@@ -20,7 +20,7 @@ var Sets = (function() {
     function addToExistingExerciseSection(setId, $exerciseToAddTo, optionOneType,
         optionOneValue, optionTwoType, optionTwoValue) {
         var $newSet = createSetListItem(optionOneType, optionOneValue, optionTwoType, optionTwoValue);
-        var newSetFullId = $exerciseToAddTo.attr('id') + "_st" + setId;
+        var newSetFullId = $exerciseToAddTo.attr('id') + '_st' + setId;
         $newSet.attr('id', newSetFullId);
         initSet($newSet);
         $exerciseToAddTo.find('.set-info-section .set-list').append($newSet);
@@ -38,7 +38,7 @@ var Sets = (function() {
 
     function removeSet($set) {
         var setFullId = $set.attr('id');
-        var setToRemoveId = setFullId.substring(setFullId.indexOf("_st") + 3);
+        var setToRemoveId = setFullId.substring(setFullId.indexOf('_st') + 3);
         $.ajax({
             type: 'POST',
             url: '/removeSet',
@@ -89,7 +89,7 @@ var Sets = (function() {
                 optionTwoUnits = '';
             }
         }
-        var dataString = optionOneValue + " " + optionOneUnits + " " + connectorWord + " " + optionTwoValue + " " + optionTwoUnits;
+        var dataString = optionOneValue + ' ' + optionOneUnits + ' ' + connectorWord + ' ' + optionTwoValue + ' ' + optionTwoUnits;
         $newSet.text(dataString);
         $newSet.append('<button type="button" class="close remove-set-button" style="display:none"><span>&times;</span></button>');
         return $newSet;
@@ -107,7 +107,7 @@ var Sets = (function() {
             var optionTwoType = setConfig['optionTwoType'];;
             var optionTwoValue = setConfig['optionTwoValue'];;
 
-            var exerciseDivFullId = "ws" + workoutId + "_ex" + exerciseId;
+            var exerciseDivFullId = 'ws' + workoutId + '_ex' + exerciseId;
             var $exerciseInWorkoutToAddTo = $('#' + exerciseDivFullId);
             if ($exerciseInWorkoutToAddTo.length == 0) {
                 createNewExerciseSection(setId, workoutId, exerciseDivFullId, exerciseName, optionOneType,

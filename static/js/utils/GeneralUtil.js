@@ -39,7 +39,7 @@ var GeneralUtil = (function() {
             var month = monthNames[date.getMonth()];
             var dayOfMonth = date.getDate();
             var year = date.getFullYear();
-            return month + " " + dayOfMonth + ", " + year;
+            return month + ' ' + dayOfMonth + ', ' + year;
         }
     }
 

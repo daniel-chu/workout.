@@ -24,7 +24,7 @@ def index():
 @app.route('/', methods=['POST'])
 def check_logged_in():
     if not is_logged_in():
-        return jsonify(status='error', error='Not logged in.');
+        return jsonify(status='error', error='Not logged in.')
     return jsonify(status='success')
 
 @app.route('/login', methods=['POST'])
@@ -131,7 +131,7 @@ def deleteWorkoutSession():
     userToRemoveFrom = users.find_one({'username': username})
     deleteStatus = workoutSessions.delete_one({'_id':workoutIdToRemove})
     if deleteStatus.deleted_count is not 0:
-        return jsonify(status='success');
+        return jsonify(status='success')
     else:
         return jsonify(status='error', error='Error with deletion, no documents deleted.')
 

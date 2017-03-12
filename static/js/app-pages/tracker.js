@@ -58,7 +58,7 @@ $(document).ready(function() {
     }
 
     $('#exercise-name-input').on('change', function() {
-        changeOptionsForExercise($('#exercise-name-input').val(), "weight", "reps");
+        changeOptionsForExercise($('#exercise-name-input').val());
     });
 
     $('#add-workout-button').on('click', function() {
@@ -71,7 +71,7 @@ $(document).ready(function() {
     });
 
     $weightOrDistSelector.on('change', function() {
-        var value = $weightOrDistSelector.find(":selected").text();
+        var value = $weightOrDistSelector.find(':selected').text();
         $('#weight-or-dist-input').attr('placeholder', value);
         if (window.matchMedia('(max-width: 767px)').matches) {
             if (value == 'distance*') {

@@ -21,7 +21,7 @@ $(document).ready(function() {
                 if (response['status'] === 'error') {
                     $allRegisterButtons.prop('disabled', false);
                     $registerMessage.text(response['error']).show()
-                        .effect("shake", { direction: "up", times: 3, distance: 2 });
+                        .effect('shake', { direction: 'up', times: 3, distance: 2 });
                 } else if (response['status'] === 'success') {
                     pageLoadRequestSentAlreadyHashChangeTriggerUnneeded = true;
                     PageNavigationUtil.goToLoginPage(function() {
