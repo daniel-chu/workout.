@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     // TODO fix css for zoom in breaking modal -> .modal.fade.in { top: auto } issue
 
-    function handleCreateNew() {
+    function handleCreateNewExercise() {
         if ($('#create-exercise-option').length > 0) {
             $('#create-exercise-option').remove();
         }
@@ -32,12 +32,11 @@ $(document).ready(function() {
         }
     }
 
-    $('#exercise-select-picker-container').on('click', function() {
-        $('.bs-searchbox>input').off('input', handleCreateNew).on('input', handleCreateNew);
-        if ($('.no-results').length == 0) {
-            $('#create-exercise-option').remove();
-        }
-    });
+    function submitNewSet() {
+        var workoutIdToAddTo = $('#add-set-popup').data('workoutId');
+        $('#add-set-popup').modal('hide');
+        Sets.handleNewSetInWorkout(workoutIdToAddTo);
+    }
 
     function changeOptionsForExercise(exerciseName) {
         $.ajax({
@@ -57,6 +56,13 @@ $(document).ready(function() {
             })
     }
 
+    $('#exercise-select-picker-container').on('click', function() {
+        $('.bs-searchbox>input').off('input', handleCreateNewExercise).on('input', handleCreateNewExercise);
+        if ($('.no-results').length == 0) {
+            $('#create-exercise-option').remove();
+        }
+    });
+
     $('#exercise-name-input').on('change', function() {
         changeOptionsForExercise($('#exercise-name-input').val());
     });
@@ -68,6 +74,10 @@ $(document).ready(function() {
     $repsOrTimeSelector.on('change', function() {
         var value = $repsOrTimeSelector.find(":selected").text();
         $('#reps-or-time-input').attr('placeholder', value);
+    });
+
+    $repsOrTimeSelector.on('change', function() {
+        $('#reps-or-time-input').val('');
     });
 
     $weightOrDistSelector.on('change', function() {
@@ -83,11 +93,9 @@ $(document).ready(function() {
         }
     });
 
-    function submitNewSet() {
-        var workoutIdToAddTo = $('#add-set-popup').data('workoutId');
-        $('#add-set-popup').modal('hide');
-        Sets.handleNewSetInWorkout(workoutIdToAddTo);
-    }
+    $weightOrDistSelector.on('change', function() {
+        $('#weight-or-dist-input').val('');
+    });
 
     $('#submit-set-info-button').on('click', submitNewSet);
 
@@ -112,11 +120,11 @@ $(document).ready(function() {
 
     $.ajax({
             type: 'GET',
-            url: '/getUsersExercises'
+            url: '/getExercisesForUser'
         })
         .done(function(response) {
             if (response['status'] === 'success') {
-                var allUserExercises = JSON.parse(response['allUserExercises']);
+                var allUserExercises = JSON.parse(response['allExercisesForUser']);
                 for (var i = 0; i < allUserExercises.length; i++) {
                     $exerciseNameInput.append($('<option>').text(allUserExercises[i]['name']));
                 }

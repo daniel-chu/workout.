@@ -150,8 +150,9 @@ def addNewSet():
     option_two_value = request.form.get('optionTwoValue')
     date_time_performed = request.form.get('dateTimePerformed')
 
-    existing_exercise = exercises.find_one({ '$or' : [ {'name': exercise_name, 'userId':user_id, 'optionOneType':option_one_type, 'optionTwoType':option_two_type},
-        {'name': exercise_name, 'userId':'PUBLIC', 'optionOneType':option_one_type, 'optionTwoType':option_two_type} ] })
+    existing_exercise = exercises.find_one({ '$or' : [ {'name': exercise_name, 'userId':user_id,
+        'optionOneType':option_one_type, 'optionTwoType':option_two_type}, {'name': exercise_name, 'userId':'PUBLIC',
+        'optionOneType':option_one_type, 'optionTwoType':option_two_type} ] })
     if existing_exercise is None:
         exercise_id = exercises.insert({'_id':gen_unique_string_id(), 'userId':user_id,
             'name':exercise_name, 'optionOneType':option_one_type, 'optionTwoType':option_two_type})
@@ -185,14 +186,14 @@ def retrieveExerciseOptions():
     return jsonify(status='success', optionOneType=selectedExercise['optionOneType'],
         optionTwoType=selectedExercise['optionTwoType'])
 
-@app.route('/getUsersExercises', methods=['GET'])
+@app.route('/getExercisesForUser', methods=['GET'])
 def getUsersExercises():
     username = retrieve_username().lower()
     user = users.find_one({'username': username})
     user_id = user['_id']
 
-    usersExercises = exercises.find({'userId':user_id})
-    return jsonify(status='success', allUserExercises=json_util.dumps(usersExercises))
+    usersExercises = exercises.find( {'$or' : [ {'userId':user_id}, {'userId':'PUBLIC'} ] }).sort('name', 1)
+    return jsonify(status='success', allExercisesForUser=json_util.dumps(usersExercises))
 
 @app.route('/getSets', methods=['GET'])
 def getSets():
