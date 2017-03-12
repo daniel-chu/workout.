@@ -71,13 +71,11 @@ var Workout = (function() {
 
     return {
         enterRemoveSetMode: function($workoutDiv) {
-            $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'show' }, 250)
-                .css('overflow', 'visible');
+            $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'show' }, 250);
         },
         exitRemoveSetMode: function($workoutDiv) {
             $workoutDiv.find('.edit-workout-button').removeClass('active');
-            $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'hide' }, 250)
-                .css('overflow', 'visible');
+            $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'hide' }, 250);
         },
         createNewWorkout: function() {
             var dateString = GeneralUtil.getMonthDayYear(new Date());

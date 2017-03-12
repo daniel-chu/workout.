@@ -226,7 +226,9 @@ body {
 
 .remove-set-button {
     margin: 0 0 0 4px;
-    height: 10px;
+    height: 18px;
+    font-size: 18px;
+    overflow: visible !important;
 }
 
 .remove-workout-button,
