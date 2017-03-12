@@ -165,8 +165,6 @@ def addNewSet():
 
     return jsonify(status='success', exerciseId=exercise_id, setId=new_set_id)
 
-# TODO add exercises to selectpicker from database
-
 @app.route('/retrieveExerciseOptions', methods=['GET'])
 def retrieveExerciseOptions():
     username = retrieve_username().lower()
@@ -187,6 +185,14 @@ def retrieveExerciseOptions():
     return jsonify(status='success', optionOneType=selectedExercise['optionOneType'],
         optionTwoType=selectedExercise['optionTwoType'])
 
+@app.route('/getUsersExercises', methods=['GET'])
+def getUsersExercises():
+    username = retrieve_username().lower()
+    user = users.find_one({'username': username})
+    user_id = user['_id']
+
+    usersExercises = exercises.find({'userId':user_id})
+    return jsonify(status='success', allUserExercises=json_util.dumps(usersExercises))
 
 @app.route('/getSets', methods=['GET'])
 def getSets():
