@@ -32,7 +32,6 @@ $(document).ready(function() {
     }
 
     $('#exercise-select-picker-container').on('click', function() {
-        console.log("INPUT CLICKED");
         $('.bs-searchbox>input').off('input', handleCreateNew).on('input', handleCreateNew);
         if ($('.no-results').length == 0) {
             $('#create-exercise-option').remove();

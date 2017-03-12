@@ -117,18 +117,23 @@ def getWorkoutSessions():
     username = retrieve_username().lower()
     userToAddTo = users.find_one({'username': username})
     resultWorkoutSessions = workoutSessions.find({'userId':userToAddTo['_id']}).sort('dateNumber', -1)
-    return jsonify(status='success', allWorkoutSessions=json_util.dumps(resultWorkoutSessions));
+    return jsonify(status='success', allWorkoutSessions=json_util.dumps(resultWorkoutSessions))
 
 @app.route('/deleteWorkoutSession', methods=['POST'])
 def deleteWorkoutSession():
     workoutIdToRemove = request.form.get('workoutIdToRemove')
+    hasAssociatedSets = request.form.get('hasAssociatedSets')
+
+    if hasAssociatedSets:
+        sets.delete_many({'workoutId':workoutIdToRemove})
+
     username = retrieve_username().lower()
     userToRemoveFrom = users.find_one({'username': username})
     deleteStatus = workoutSessions.delete_one({'_id':workoutIdToRemove})
     if deleteStatus.deleted_count is not 0:
         return jsonify(status='success');
     else:
-        return jsonify(status='error', error='Error with deletion, no documents deleted.');
+        return jsonify(status='error', error='Error with deletion, no documents deleted.')
 
 @app.route('/addNewSet', methods=['POST'])
 def addNewSet():

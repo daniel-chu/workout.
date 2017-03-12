@@ -35,12 +35,11 @@ var Workout = (function() {
 
     function confirmDelete($workoutContainerToRemove) {
         if ($workoutContainerToRemove.find('.set-list').length === 0) {
-            deleteWorkout($workoutContainerToRemove);
+            deleteWorkout($workoutContainerToRemove, false);
         } else {
-            console.log($('#confirm-delete-modal'))
             $('#confirm-delete-button').off('click');
             $('#confirm-delete-button').on('click', function() {
-                deleteWorkout($workoutContainerToRemove);
+                deleteWorkout($workoutContainerToRemove, true);
                 $('#confirm-delete-modal').modal('hide');
             });
             $('#confirm-delete-modal').on('hide.bs.modal', function() {
@@ -50,13 +49,14 @@ var Workout = (function() {
         }
     }
 
-    function deleteWorkout($workoutContainerToRemove) {
+    function deleteWorkout($workoutContainerToRemove, hasAssociatedSets) {
         var workoutSessionId = $workoutContainerToRemove.attr('id').substring(2);
         $.ajax({
                 type: 'POST',
                 url: '/deleteWorkoutSession',
                 data: {
-                    'workoutIdToRemove': workoutSessionId
+                    'workoutIdToRemove': workoutSessionId,
+                    'hasAssociatedSets': hasAssociatedSets
                 }
             })
             .done(function(response) {
