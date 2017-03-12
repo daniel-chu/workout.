@@ -60,10 +60,20 @@ $(document).ready(function() {
         }
     });
 
-    $('#submit-set-info-button').on('click', function() {
-        var workoutIdToAddTo = $(this).parents('#add-set-popup').data('workoutId');
+    function submitNewSet() {
+        var workoutIdToAddTo = $('#add-set-popup').data('workoutId');
         $('#add-set-popup').modal('hide');
         Sets.handleNewSetInWorkout(workoutIdToAddTo);
+    }
+
+    $('#submit-set-info-button').on('click', submitNewSet);
+
+    $('#add-set-popup .enter-to-submit').on('keydown', function(event) {
+        if ($('#submit-set-info-button').prop('disabled') == undefined || $('#submit-set-info-button').prop('disabled') == false) {
+            if (event.which == 13) {
+                submitNewSet();
+            }
+        }
     });
 
     $.ajax({
