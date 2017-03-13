@@ -96,31 +96,43 @@ var Sets = (function() {
     }
 
     function renderAllSets(listOfSetConfigs, curIndex) {
-        if (curIndex < listOfSetConfigs.length) {
-            var setConfig = listOfSetConfigs[curIndex];
-            var setId = setConfig['_id'];
-            var workoutId = setConfig['workoutId'];
-            var exerciseId = setConfig['exerciseId'];
-            var exerciseName = setConfig['exerciseName'];
-            var optionOneType = setConfig['optionOneType'];
-            var optionOneValue = setConfig['optionOneValue'];;
-            var optionTwoType = setConfig['optionTwoType'];;
-            var optionTwoValue = setConfig['optionTwoValue'];;
+        window.setTimeout(function() {
+            if (curIndex < listOfSetConfigs.length) {
+                var setConfig = listOfSetConfigs[curIndex];
+                var setId = setConfig['_id'];
+                var workoutId = setConfig['workoutId'];
+                var exerciseId = setConfig['exerciseId'];
+                var exerciseName = setConfig['exerciseName'];
+                var optionOneType = setConfig['optionOneType'];
+                var optionOneValue = setConfig['optionOneValue'];;
+                var optionTwoType = setConfig['optionTwoType'];;
+                var optionTwoValue = setConfig['optionTwoValue'];;
 
-            var exerciseDivFullId = 'ws' + workoutId + '_ex' + exerciseId;
-            var $exerciseInWorkoutToAddTo = $('#' + exerciseDivFullId);
-            if ($exerciseInWorkoutToAddTo.length == 0) {
-                createNewExerciseSection(setId, workoutId, exerciseDivFullId, exerciseName, optionOneType,
-                    optionOneValue, optionTwoType, optionTwoValue,
-                    function() {
-                        renderAllSets(listOfSetConfigs, curIndex + 1);
-                    });
+                var exerciseDivFullId = 'ws' + workoutId + '_ex' + exerciseId;
+                var $exerciseInWorkoutToAddTo = $('#' + exerciseDivFullId);
+                if ($exerciseInWorkoutToAddTo.length == 0) {
+                    createNewExerciseSection(setId, workoutId, exerciseDivFullId, exerciseName, optionOneType,
+                        optionOneValue, optionTwoType, optionTwoValue,
+                        function() {
+                            renderAllSets(listOfSetConfigs, curIndex + 1);
+                        });
+                } else {
+                    addToExistingExerciseSection(setId, $exerciseInWorkoutToAddTo, optionOneType, optionOneValue,
+                        optionTwoType, optionTwoValue);
+                    renderAllSets(listOfSetConfigs, curIndex + 1);
+                }
             } else {
-                addToExistingExerciseSection(setId, $exerciseInWorkoutToAddTo, optionOneType, optionOneValue,
-                    optionTwoType, optionTwoValue);
-                renderAllSets(listOfSetConfigs, curIndex + 1);
+                var workoutId = listOfSetConfigs[0]['workoutId'];
+                $('#ws' + workoutId).find('.sets-container-panel-body').css('height', '116px')
+                $('#ws' + workoutId).find('.workout-loading-mask-div').fadeOut(500, function() {
+                    $('#ws' + workoutId).find('.sets-container.panel-body').animate({
+                        opacity: 'show',
+                        height: 'show'
+                    }, 750);
+                    $('#ws' + workoutId).find('.workout-loading-mask-div').remove();
+                });
             }
-        }
+        }, 10);
     }
 
     return {
@@ -172,6 +184,7 @@ var Sets = (function() {
                     if (response['status'] === 'success') {
                         var allSetsInWorkout = JSON.parse(response['setsInWorkout']);
                         if (allSetsInWorkout.length > 0) {
+                            $('#ws' + workoutId).find('.workout-loading-mask-div .circularG_main').fadeIn(500);
                             renderAllSets(allSetsInWorkout, 0);
                         }
                     }

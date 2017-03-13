@@ -7,8 +7,10 @@ var Workout = (function() {
             .load('/static/html/item-structures/workout-item.html', function() {
                 initWorkoutContainer($newWorkoutDiv, workoutConfig.dateString);
                 $newWorkoutDiv.attr('id', 'ws' + workoutConfig['_id']);
+                $newWorkoutDiv.hide();
                 $workoutContainer.append($newWorkoutDiv);
                 Sets.loadExistingSets(workoutConfig['_id']);
+                $newWorkoutDiv.fadeIn(200);
             });
     }
 
@@ -69,6 +71,18 @@ var Workout = (function() {
             });
     }
 
+    function delayedLoopThroughWorkoutSessions(listOfWorkoutSessions, i, callback) {
+        window.setTimeout(function() {
+            if (i < listOfWorkoutSessions.length) {
+                renderGivenWorkout(listOfWorkoutSessions[i]);
+                i++;
+                delayedLoopThroughWorkoutSessions(listOfWorkoutSessions, i, callback);
+            } else {
+                (callback)();
+            }
+        }, 200);
+    }
+
     return {
         enterRemoveSetMode: function($workoutDiv) {
             $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'show' }, 250);
@@ -78,12 +92,15 @@ var Workout = (function() {
             $workoutDiv.find('.sets-container .remove-set-button').animate({ width: 'hide' }, 250);
         },
         createNewWorkout: function() {
+            //TODO don't save until there is at least one set in it
             var dateString = GeneralUtil.getMonthDayYear(new Date());
             var $newWorkoutDiv = $('<div>').addClass('row').addClass('workout-row')
                 .load('/static/html/item-structures/workout-item.html', function() {
                     initWorkoutContainer($newWorkoutDiv, dateString);
                     $newWorkoutDiv.find('.add-set-button').prop('disabled', true);
                     $newWorkoutDiv.hide();
+                    $newWorkoutDiv.find('.sets-container.panel-body').show();
+                    $newWorkoutDiv.find('.workout-loading-mask-div').hide();
                     $workoutContainer.prepend($newWorkoutDiv);
 
                     $newWorkoutDiv.animate({ opacity: 'toggle', height: 'toggle' }, 300);
@@ -104,12 +121,10 @@ var Workout = (function() {
         },
         //TODO render only a certain amount, load more as you scroll
         renderMultipleWorkoutSessions: function(listOfWorkoutSessions) {
-            $('#all-workouts-container').hide()
-            for (var i = 0; i < listOfWorkoutSessions.length; i++) {
-                //TODO increase performance of this
-                renderGivenWorkout(listOfWorkoutSessions[i]);
-            }
-            $('#all-workouts-container').fadeIn(500);
+            // $('#all-workouts-container').hide()
+            delayedLoopThroughWorkoutSessions(listOfWorkoutSessions, 0, function() {
+                $('#all-workouts-container').fadeIn(500);
+            });
         }
     }
 })();

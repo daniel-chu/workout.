@@ -305,6 +305,14 @@ select option:first-child {
     margin-bottom: 10px;
 }
 
+.workout .panel-body {
+    min-height: 35px;
+}
+
+.workout-loading-mask-div {
+    padding: 30px 0;
+}
+
 @media screen and (min-width: 300px) and (max-width: 450px) {
     .modal {
         width: 90%;
