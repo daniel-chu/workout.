@@ -7,6 +7,10 @@ body {
     overflow-x: hidden;
 }
 
+#add-set-popup {
+    min-width: 288px !important;
+}
+
 .add-set-input {
     margin: 2px;
 }
@@ -255,6 +259,7 @@ body {
 
 .set-info-list-item {
     list-style-type: none;
+    min-width: 125px;
 }
 
 .set-list {

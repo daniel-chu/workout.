@@ -121,7 +121,6 @@ var Workout = (function() {
         },
         //TODO render only a certain amount, load more as you scroll
         renderMultipleWorkoutSessions: function(listOfWorkoutSessions) {
-            // $('#all-workouts-container').hide()
             delayedLoopThroughWorkoutSessions(listOfWorkoutSessions, 0, function() {
                 $('#all-workouts-container').fadeIn(500);
             });
