@@ -54,10 +54,9 @@ var Workout = (function() {
     function deleteWorkout($workoutContainerToRemove, hasAssociatedSets) {
         var workoutSessionId = $workoutContainerToRemove.attr('id').substring(2);
         $.ajax({
-                type: 'POST',
-                url: '/deleteWorkoutSession',
+                type: 'DELETE',
+                url: '/workouts/'+workoutSessionId,
                 data: {
-                    'workoutIdToRemove': workoutSessionId,
                     'hasAssociatedSets': hasAssociatedSets
                 }
             })
@@ -106,7 +105,7 @@ var Workout = (function() {
                     $newWorkoutDiv.animate({ opacity: 'toggle', height: 'toggle' }, 300);
                     $.ajax({
                             type: 'POST',
-                            url: '/addWorkoutSession',
+                            url: '/workouts',
                             data: {
                                 'dateString': dateString,
                                 'dateNumber': new Date().getTime()

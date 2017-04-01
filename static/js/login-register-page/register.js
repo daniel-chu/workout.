@@ -7,7 +7,7 @@ $(document).ready(function() {
         $allRegisterButtons.prop('disabled', true);
         $.ajax({
                 type: 'POST',
-                url: '/registerUser',
+                url: '/users',
                 data: {
                     'name': $('#name-register').val(),
                     'email': $('#email-register').val(),

@@ -48,7 +48,7 @@ def login():
     else:
         return jsonify(status='error',error='Invalid username or password.')
 
-@app.route('/registerUser', methods=['POST'])
+@app.route('/users', methods=['POST'])
 def register_user():
     name = request.form.get('name')
     email = request.form.get('email')
@@ -100,7 +100,7 @@ def register_user():
 def retrieveUsername():
     return retrieve_username()
 
-@app.route('/addWorkoutSession', methods=['POST'])
+@app.route('/workouts', methods=['POST'])
 def addWorkoutSession():
     dateString = request.form.get('dateString')
     dateNumber = request.form.get('dateNumber')
@@ -112,36 +112,34 @@ def addWorkoutSession():
     return jsonify(status='success', newWorkoutSessionId=json_util.dumps(newWorkoutSessionId))
 
 
-@app.route('/getWorkoutSessions', methods=['GET'])
+@app.route('/workouts', methods=['GET'])
 def getWorkoutSessions():
     username = retrieve_username().lower()
     userToAddTo = users.find_one({'username': username})
     resultWorkoutSessions = workoutSessions.find({'userId':userToAddTo['_id']}).sort('dateNumber', -1)
     return jsonify(status='success', allWorkoutSessions=json_util.dumps(resultWorkoutSessions))
 
-@app.route('/deleteWorkoutSession', methods=['POST'])
-def deleteWorkoutSession():
-    workoutIdToRemove = request.form.get('workoutIdToRemove')
+@app.route('/workouts/<workout_id>', methods=['DELETE'])
+def deleteWorkoutSession(workout_id):
     hasAssociatedSets = request.form.get('hasAssociatedSets')
 
     if hasAssociatedSets:
-        sets.delete_many({'workoutId':workoutIdToRemove})
+        sets.delete_many({'workoutId':workout_id})
 
     username = retrieve_username().lower()
     userToRemoveFrom = users.find_one({'username': username})
-    deleteStatus = workoutSessions.delete_one({'_id':workoutIdToRemove})
+    deleteStatus = workoutSessions.delete_one({'_id':workout_id})
     if deleteStatus.deleted_count is not 0:
         return jsonify(status='success')
     else:
         return jsonify(status='error', error='Error with deletion, no documents deleted.')
 
-@app.route('/addNewSet', methods=['POST'])
-def addNewSet():
+@app.route('/workouts/<workout_id>/sets', methods=['POST'])
+def addNewSet(workout_id):
     username = retrieve_username().lower()
     userToAddExerciseTo = users.find_one({'username': username})
     user_id = userToAddExerciseTo['_id']
 
-    workout_id = request.form.get('workoutId')
     exercise_name = request.form.get('exerciseName')
     exercise_name = exercise_name.lower().title()
     option_one_type = request.form.get('optionOneType')
@@ -166,12 +164,11 @@ def addNewSet():
 
     return jsonify(status='success', exerciseId=exercise_id, setId=new_set_id)
 
-@app.route('/retrieveExerciseOptions', methods=['GET'])
-def retrieveExerciseOptions():
+@app.route('/exercises/<exercise_name>/exercise-options', methods=['GET'])
+def retrieveExerciseOptions(exercise_name):
     username = retrieve_username().lower()
     user = users.find_one({'username': username})
     user_id = user['_id']
-    exercise_name = request.args.get('exerciseName')
 
     # finds user version first
     selectedExercise = exercises.find_one({ 'name': exercise_name, 'userId':user_id })
@@ -186,7 +183,7 @@ def retrieveExerciseOptions():
     return jsonify(status='success', optionOneType=selectedExercise['optionOneType'],
         optionTwoType=selectedExercise['optionTwoType'])
 
-@app.route('/getExercisesForUser', methods=['GET'])
+@app.route('/exercises', methods=['GET'])
 def getUsersExercises():
     username = retrieve_username().lower()
     user = users.find_one({'username': username})
@@ -195,23 +192,21 @@ def getUsersExercises():
     usersExercises = exercises.find( {'$or' : [ {'userId':user_id}, {'userId':'PUBLIC'} ] }).sort('name', 1)
     return jsonify(status='success', allExercisesForUser=json_util.dumps(usersExercises))
 
-@app.route('/getSets', methods=['GET'])
-def getSets():
+@app.route('/workouts/<workout_id>/sets', methods=['GET'])
+def getSets(workout_id):
     username = retrieve_username().lower()
     user = users.find_one({'username': username})
     user_id = user['_id']
-    workout_id = request.args.get('workoutId')
 
     setsInWorkout = sets.find({'workoutId':workout_id, 'userId':user_id}).sort('dateTimePerformed', 1)
     return jsonify(status='success', setsInWorkout=json_util.dumps(setsInWorkout))
 
-@app.route('/removeSet', methods=['POST'])
-def removeSet():
+@app.route('/workouts/<workout_id>/sets/<set_id>', methods=['DELETE'])
+def removeSet(workout_id, set_id):
     username = retrieve_username().lower()
     user = users.find_one({'username': username})
     user_id = user['_id']
-    set_id = request.form.get('setId')
-    sets.delete_one({'_id':set_id, 'userId':user_id})
+    sets.delete_one({'_id':set_id, 'userId':user_id, 'workoutId':workout_id})
     return jsonify(status='success')
 
 @app.route('/logout', methods=['POST'])

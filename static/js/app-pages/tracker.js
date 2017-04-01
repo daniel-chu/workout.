@@ -41,7 +41,7 @@ $(document).ready(function() {
     function changeOptionsForExercise(exerciseName) {
         $.ajax({
                 type: 'GET',
-                url: '/retrieveExerciseOptions',
+                url: '/exercises/'+exerciseName+'/exercise-options',
                 data: {
                     'exerciseName': exerciseName
                 }
@@ -113,7 +113,7 @@ $(document).ready(function() {
 
     $.ajax({
             type: 'GET',
-            url: '/getWorkoutSessions'
+            url: '/workouts'
         })
         .done(function(response) {
             if (response['status'] === 'success') {
@@ -124,7 +124,7 @@ $(document).ready(function() {
 
     $.ajax({
             type: 'GET',
-            url: '/getExercisesForUser'
+            url: '/exercises'
         })
         .done(function(response) {
             if (response['status'] === 'success') {

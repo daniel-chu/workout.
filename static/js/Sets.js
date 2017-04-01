@@ -38,13 +38,11 @@ var Sets = (function() {
 
     function removeSet($set) {
         var setFullId = $set.attr('id');
+        var workoutId = setFullId.substring(0, setFullId.indexOf('_ex'));
         var setToRemoveId = setFullId.substring(setFullId.indexOf('_st') + 3);
         $.ajax({
-            type: 'POST',
-            url: '/removeSet',
-            data: {
-                setId: setToRemoveId
-            }
+            type: 'DELETE',
+            url: '/workouts/'+workoutId+'/sets/'+setToRemoveId
         });
         $set.animate({ opacity: 'toggle', height: 'toggle' }, 300, function() {
             $set.remove();
@@ -146,9 +144,8 @@ var Sets = (function() {
             var repsOrTime = $('#reps-or-time-input').val();
             $.ajax({
                     type: 'POST',
-                    url: '/addNewSet',
+                    url: '/workouts/'+workoutId+'/sets',
                     data: {
-                        'workoutId': workoutId,
                         'exerciseName': exerciseName,
                         'optionOneType': optionOneType,
                         'optionOneValue': optionOneValue,
@@ -175,10 +172,7 @@ var Sets = (function() {
         loadExistingSets: function(workoutId) {
             $.ajax({
                     type: 'GET',
-                    url: '/getSets',
-                    data: {
-                        'workoutId': workoutId
-                    }
+                    url: '/workouts/'+workoutId+'/sets'
                 })
                 .done(function(response) {
                     if (response['status'] === 'success') {
