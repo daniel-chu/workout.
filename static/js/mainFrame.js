@@ -22,7 +22,7 @@ $(document).ready(function() {
     });
 
     //TODO remove this when it reaches usable state and create a development branch and release branch
-    GeneralUtil.displayFadeInfo('Development still in progress, features marked with * may not work yet.');
+    // GeneralUtil.displayFadeInfo('Development still in progress, features marked with * may not work yet.');
 
     var $titleContainer = $('#title-container');
     var shiftDist = $titleContainer.width() / 2;

@@ -160,7 +160,9 @@ var PageNavigationUtil = (function() {
                     $('#nav-tracker-tab').addClass('active');
                     (callback)();
                 });
-            } else if (hashUrl == '#exercises') {
+            }
+            // TODO commented out for now
+            /*else if (hashUrl == '#exercises') {
                 PageNavigationUtil.goToExercisesPage(function() {
                     $('.nav-tab').removeClass('active');
                     $('#nav-exercises-tab').addClass('active');
@@ -182,7 +184,8 @@ var PageNavigationUtil = (function() {
                     $('.nav-tab').removeClass('active');
                     (callback)();
                 });
-            } else {
+            } */
+            else {
                 // nothing for now
             }
         }
