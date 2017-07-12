@@ -38,7 +38,7 @@ var Sets = (function() {
 
     function removeSet($set) {
         var setFullId = $set.attr('id');
-        var workoutId = setFullId.substring(0, setFullId.indexOf('_ex'));
+        var workoutId = setFullId.substring(2, setFullId.indexOf('_ex'));
         var setToRemoveId = setFullId.substring(setFullId.indexOf('_st') + 3);
         $.ajax({
             type: 'DELETE',

@@ -34,14 +34,28 @@ $(document).ready(function() {
 
     function submitNewSet() {
         var workoutIdToAddTo = $('#add-set-popup').data('workoutId');
+        var exerciseName = $('#exercise-name-input').val();
+        var optionOneType = $('#weight-or-dist-selector').val();
+        var optionOneValue = $('#weight-or-dist-input').val();
+        var optionTwoType = $('#reps-or-time-selector').val();
+        var optionTwoValue = $('#reps-or-time-input').val();
+
+        var anyFieldsEmpty = !exerciseName || !optionOneType || optionOneValue === "" || !optionTwoType || optionTwoValue === "";
+        if (anyFieldsEmpty) {
+            $('#error-message-addset').text("Please fill in everything before submitting.").show()
+                .effect('shake', { direction: 'up', times: 3, distance: 2 });
+            return;
+        }
+        $('#error-message-addset').text("").hide();
         $('#add-set-popup').modal('hide');
         Sets.handleNewSetInWorkout(workoutIdToAddTo);
     }
 
+
     function changeOptionsForExercise(exerciseName) {
         $.ajax({
                 type: 'GET',
-                url: '/exercises/'+exerciseName+'/exercise-options',
+                url: '/exercises/' + exerciseName + '/exercise-options',
                 data: {
                     'exerciseName': exerciseName
                 }

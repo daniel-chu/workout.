@@ -55,7 +55,7 @@ var Workout = (function() {
         var workoutSessionId = $workoutContainerToRemove.attr('id').substring(2);
         $.ajax({
                 type: 'DELETE',
-                url: '/workouts/'+workoutSessionId,
+                url: '/workouts/' + workoutSessionId,
                 data: {
                     'hasAssociatedSets': hasAssociatedSets
                 }

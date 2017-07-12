@@ -15,6 +15,14 @@ body {
     margin: 2px;
 }
 
+.add-set-info-text,
+.login-register-info-text {
+    margin-bottom: 5px;
+    display: none;
+    width: 90%;
+    margin: auto;
+}
+
 #add-workout-button {
     width: 50%;
     max-width: 280px;
@@ -77,6 +85,10 @@ body {
 
 .error-text {
     color: #fc6a6a;
+}
+
+#error-message-addset {
+    text-align: center;
 }
 
 #exercise-name-input,
@@ -157,13 +169,6 @@ body {
     max-width: 100%;
     margin: auto;
     text-align: center;
-}
-
-.login-register-info-text {
-    margin-bottom: 5px;
-    display: none;
-    width: 90%;
-    margin: auto;
 }
 
 .modal {
